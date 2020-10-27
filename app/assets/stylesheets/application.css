@@ -14,32 +14,35 @@
  *= require_self
  */
 
- body {
- background-color: white;
- }
+body {
+  background-color: white;
+  font-family: fantasy;
+}
 
- h1 {
+h1 {
   text-align: center;
- 	font-size: 40px;
- 	color: #002244;
- 	font-family: "Marker Felt", fantasy;
- }
+  font-size: 40px;
+  color: #002244;
+  font-family: "Marker Felt", fantasy;
+}
 
-ul{
+ul {
   padding: 0px;
   text-align: center;
 }
-img{
+
+img {
   width: 50%;
 }
 
-#cart-image{
-  width:50px;
+#cart-image {
+  width: 50px;
 }
 
 section[id*='review'] {
   background-color: #DCDCDC;
 }
+
 .list-reviews {
   display: grid;
   width: 50%;
@@ -48,58 +51,59 @@ section[id*='review'] {
   grid-gap: 30px;
 }
 
- .grid-container{
- 	display: grid;
- 	grid-template-columns: repeat(5,1fr);
- 	grid-template-rows: auto;
- 	grid-gap: 30px;
- }
+.grid-container {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  grid-template-rows: auto;
+  grid-gap: 30px;
+}
 
- .grid-item{
- 	background-color: #17BEBB;
- 	padding: 20px;
-  border: solid;
- 	border-radius: 12px;
-  border-color: #002244;
- 	text-align: center
- }
- .item-show-grid{
-  width: 60%;
- 	display: grid;
+.grid-item {
+  background-color: #17BEBB;
+  padding: 20px;
   border: solid;
   border-radius: 12px;
- 	grid-template-columns: repeat(2,1fr);
- }
+  border-color: #002244;
+  text-align: center
+}
 
- .item-show-item{
- 	padding: 20px;
- 	text-align: right;
- }
+.item-show-grid {
+  width: 60%;
+  display: grid;
+  border: solid;
+  border-radius: 12px;
+  grid-template-columns: repeat(2, 1fr);
+}
 
- .topnav {
-   overflow: hidden;
-   background-color: #002244;
- }
+.item-show-item {
+  padding: 20px;
+  text-align: right;
+}
 
- .topnav a {
-   float: left;
-   color: #f2f2f2;
-   text-align: center;
-   padding: 14px 16px;
-   text-decoration: none;
-   font-size: 17px;
- }
+.topnav {
+  overflow: hidden;
+  background-color: #002244;
+}
 
- .topnav a:hover {
-   background-color: #17BEBB;
-   color: black;
- }
+.topnav a {
+  float: left;
+  color: #f2f2f2;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+  font-size: 17px;
+}
 
- .address{
-   text-align: center;
- }
+.topnav a:hover {
+  background-color: #17BEBB;
+  color: black;
+}
 
- input[type=text], select {
+.address {
+  text-align: center;
+}
+
+input[type=text], select {
   width: 100%;
   padding: 12px 20px;
   margin: 8px 0;
@@ -123,6 +127,7 @@ input[type=submit] {
 input[type=submit]:hover {
   background-color: #45a049;
 }
+
 form {
   align-content: center;
   background-color: #f2f2f2;
@@ -135,6 +140,7 @@ form {
   background-color: red;
   color: white;
 }
+
 .success-flash {
   padding: 10px;
   background-color: green;

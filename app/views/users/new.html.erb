@@ -1,0 +1,13 @@
+<h1>Register User:</h1>
+
+<%= form_for :user do |form| %>
+  Name: <%= form.text_field :name %><br>
+  Address: <%= form.text_field :address %><br>
+  City: <%= form.text_field :city %><br>
+  State: <%= form.text_field :state %><br>
+  Zipcode: <%= form.text_field :zip %><br>
+  Email: <%= form.text_field :email %><br>
+  Password: <%= form.text_field :password %><br>
+  Confirm Password: <%= form.text_field :confirm_password %><br>
+  <%= form.submit value: 'Submit' %>
+<% end %>
