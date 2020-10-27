@@ -16,6 +16,6 @@ class ApplicationController < ActionController::Base
   end
 
   def current_merchant?
-    current_user && current_user.merchant?
+    current_user && current_user.merchant_employee?
   end
 end

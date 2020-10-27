@@ -30,7 +30,20 @@ describe 'User navigation bar' do
     end
 
     describe 'User navigation restrictions' do
+      before :each do
+        user = User.create!(name: 'Mike Dao',
+          address: '123 Main St',
+          city: 'Denver',
+          state: 'CO',
+          zip: 80428,
+          email: 'mike@turing.com',
+          password: 'ilikefood')
+
+          allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(user)
+      end
+
       it 'user cannot see /merchant' do
+
         visit "/merchant"
 
         expect(page).to have_content("The page you were looking for doesn't exist.")
