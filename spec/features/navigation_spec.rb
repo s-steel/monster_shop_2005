@@ -63,5 +63,31 @@ RSpec.describe 'Site Navigation' do
 
       expect(current_path).to eq('/login')
     end
+
+    describe "When I try to access any unauthorized path" do
+      it "does not allow visitor to see admin dashboard" do
+        visit "/admin"
+
+        expect(page).to have_content("The page you were looking for doesn't exist.")
+      end
+
+      it "does not allow visitor to see all users" do
+        visit "/admin/users"
+
+        expect(page).to have_content("The page you were looking for doesn't exist.")
+      end
+
+      it "does not allow visitor to see merchant dashboard" do
+        visit "/merchant"
+
+        expect(page).to have_content("The page you were looking for doesn't exist.")
+      end
+
+      it "does not allow visitor to see a user's profile page" do
+        visit "/profile"
+
+        expect(page).to have_content("The page you were looking for doesn't exist.")
+      end
+    end
   end
 end
