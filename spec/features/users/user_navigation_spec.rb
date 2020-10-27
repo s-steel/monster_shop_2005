@@ -8,7 +8,7 @@ describe 'User navigation bar' do
                           address: '123 Main St',
                           city: 'Denver',
                           state: 'CO',
-                          zip: '80428',
+                          zip: 80428,
                           email: 'mike@turing.com',
                           password: 'ilikefood')
 
@@ -22,13 +22,25 @@ describe 'User navigation bar' do
         expect(page).to have_link('Home')
         expect(page).to have_link('All Merchants')
         expect(page).to have_link('All Items')
-        expect(page).to have_link('Cart: 0')
-        
         expect(page).to_not have_link('Login')
         expect(page).to_not have_link('Register')
       end
 
       expect(page).to have_content("Logged in as #{user.name}")
+    end
+
+    describe 'User navigation restrictions' do
+      it 'user cannot see /merchant' do
+        visit "/merchant"
+
+        expect(page).to have_content("The page you were looking for doesn't exist.")
+      end
+
+      it 'user cannot see /admin' do
+        visit "/admin"
+
+        expect(page).to have_content("The page you were looking for doesn't exist.")
+      end
     end
   end
 end
