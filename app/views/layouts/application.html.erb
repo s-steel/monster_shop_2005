@@ -15,7 +15,12 @@
       <%= link_to "All Items", "/items"%>
       <%= link_to "Cart: #{cart.total_items}", "/cart" %>
 
-      <% if current_user %>
+      <% if current_user && current_user.role == "merchant_employee" %>
+        <%= link_to "Dashboard", "/merchant" %>
+        <%= link_to "Profile", "/profile" %>
+        <%= link_to "Logout", "/logout" %>
+        <div>Logged in as <%= current_user.name %></div>
+      <% elsif current_user %>
         <%= link_to "Profile", "/profile" %>
         <%= link_to "Logout", "/logout" %>
         <div>Logged in as <%= current_user.name %></div>
@@ -24,7 +29,7 @@
         <%= link_to "Login", '/login' %>
       <% end %>
     </nav>
-    
+
     <% flash.each do |name, msg| %>
       <div class= "<%=name%>-flash">
         <p><%= msg %></p>
