@@ -48,4 +48,8 @@ Rails.application.routes.draw do
     get '/', to: 'dashboard#index'
     get '/users', to: 'users#index'
   end
+
+  namespace :merchant do
+    get '/', to: 'dashboard#index'
+  end
 end
