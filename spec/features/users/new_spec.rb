@@ -2,7 +2,6 @@ require 'rails_helper'
 
 describe 'new registration' do
   describe 'create new user' do
-
     before :each do
       visit '/register'
     end
@@ -29,6 +28,16 @@ describe 'new registration' do
       click_button 'Submit'
       expect(current_path).to eq('/profile')
       expect(page).to have_content('You are now registered and logged in')
+    end
+
+    it 'fill in forms without all information, page does not change and flash message' do
+      fill_in 'user[email]', with: 'bob@email.com'
+      fill_in 'user[password]', with: 'password'
+      fill_in 'user[confirm_password]', with: 'password'
+
+      click_button 'Submit'
+      expect(current_path).to eq('/register')
+      expect(page).to have_content('Please enter data in all required fields')
     end
   end
 end
