@@ -42,4 +42,10 @@ Rails.application.routes.draw do
   get '/profile', to: 'users#show'
 
   get '/login', to: 'sessions#new'
+
+  # Admin
+  namespace :admin do
+    get '/', to: 'dashboard#index'
+    get '/users', to: 'users#index'
+  end
 end
