@@ -1,6 +1,14 @@
 class SessionsController < ApplicationController
 
-  def new; end
+  def new
+    if current_merchant?
+      redirect_to "/merchant"
+    elsif current_admin?
+      redirect_to "/admin"
+    elsif current_user
+      redirect_to "/profile"
+    end
+  end
 
   def create
     if user = User.find_by(email: params[:email])
@@ -22,7 +30,7 @@ class SessionsController < ApplicationController
     else
       flash[:error] = 'Invalid email or password, please try again.'
       redirect_to '/login'
-    end 
+    end
   end
 
 end
