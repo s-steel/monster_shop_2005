@@ -41,6 +41,7 @@ Rails.application.routes.draw do
 
   get '/profile', to: 'users#show'
   get '/profile/edit', to: 'users#edit'
+  patch '/profile', to: 'users#update', as: :user
 
   get '/login', to: 'sessions#new'
   post '/login', to: 'sessions#create'
