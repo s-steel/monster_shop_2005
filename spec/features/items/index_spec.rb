@@ -89,7 +89,7 @@ RSpec.describe "Items Index Page" do
       expect(current_path).to eq("/items/#{@pull_toy.id}")
     end
 
-    xit 'see statistics for top five and bottom five items by quantity purchased plus quantity bought' do
+    it 'see statistics for top five and bottom five items by quantity purchased plus quantity bought' do
       visit '/items'
 
       within '#stats-most-popular' do
