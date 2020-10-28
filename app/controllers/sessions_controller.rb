@@ -1,6 +1,8 @@
 class SessionsController < ApplicationController
 
   def new
+    flash[:success] = 'You are already logged in!' if current_user
+
     if current_merchant?
       redirect_to "/merchant"
     elsif current_admin?
@@ -31,6 +33,14 @@ class SessionsController < ApplicationController
       flash[:error] = 'Invalid email or password, please try again.'
       redirect_to '/login'
     end
+  end
+
+  def destroy
+    session.delete(:user_id)
+    session.delete(:cart)
+    flash[:success] = 'You are logged out!'
+
+    redirect_to '/'
   end
 
 end
