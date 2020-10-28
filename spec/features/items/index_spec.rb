@@ -57,5 +57,27 @@ RSpec.describe "Items Index Page" do
         expect(page).to have_css("img[src*='#{@dog_bone.image}']")
       end
     end
+
+    it "all item images link to it's show page" do
+      visit '/items'
+
+      expect(page).to have_xpath("//img[contains(@src, '#{@tire.image}')]")
+      expect(page).to have_xpath("//img[contains(@src, '#{@pull_toy.image}')]")
+      expect(page).to have_xpath("//img[contains(@src, '#{@dog_bone.image}')]")
+
+      find(class: "image-link-#{@tire.id}").click
+      expect(current_path).to eq("/items/#{@tire.id}")
+
+      visit '/items'
+      find(class: "image-link-#{@pull_toy.id}").click
+      expect(current_path).to eq("/items/#{@pull_toy.id}")
+
+      visit '/items'
+      find(class: "image-link-#{@dog_bone.id}").click
+      expect(current_path).to eq("/items/#{@dog_bone.id}")
+    end
+
+    xit 'I cannot see disables items' do 
+    end
   end
 end
