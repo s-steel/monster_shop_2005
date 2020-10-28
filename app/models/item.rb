@@ -25,7 +25,7 @@ class Item <ApplicationRecord
     item_orders.empty?
   end
 
-  # def self.item_stats(limit)
-  #   joins(:item_orders).order("sum(item_orders.quantity) desc").limit(limit).group("item_orders.item_id").sum("item_orders.quantity")
-  # end
+  def self.item_stats(limit, order)
+    joins(:item_orders).order("sum(item_orders.quantity) desc").limit(limit).group("item_orders.item_id").sum("item_orders.quantity")
+  end
 end
