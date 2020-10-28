@@ -16,7 +16,8 @@ describe "As a registered user" do
     it "I see a form that's prepopulated with all current information besides password.
         After changing and submitting, I am returned to my profile page and see a flash
         that info is updated" do
-        allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(@user)
+      allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(@user)
+
       visit '/profile/edit'
 
       expect(page).to have_content("Edit Profile")
