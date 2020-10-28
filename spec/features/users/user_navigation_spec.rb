@@ -8,8 +8,8 @@ describe 'User navigation bar' do
                           address: '123 Main St',
                           city: 'Denver',
                           state: 'CO',
-                          zip: '80428',
-                          email: 'mike@turing.com',
+                          zip: 80428,
+                          email: 'mike3@turing.com',
                           password: 'ilikefood')
 
       allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(user)
@@ -36,7 +36,7 @@ describe 'User navigation bar' do
           city: 'Denver',
           state: 'CO',
           zip: 80428,
-          email: 'mike@turing.com',
+          email: 'mike2@turing.com',
           password: 'ilikefood')
 
           allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(user)

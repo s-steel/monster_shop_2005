@@ -8,7 +8,7 @@ describe "As a visitor" do
       expect(page).to have_content('Login')
       expect(page).to have_field('Email')
       expect(page).to have_field('Password')
-      expect(page).to have_button('Submit')
+      expect(page).to have_button('Login')
     end
 
     describe "When I submit valid information" do
@@ -18,7 +18,7 @@ describe "As a visitor" do
                             city: 'Denver',
                             state: 'CO',
                             zip: '80428',
-                            email: 'mike@turing.com',
+                            email: 'mike1@turing.com',
                             password: 'ilikefood')
 
         # allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(user)
@@ -27,7 +27,7 @@ describe "As a visitor" do
 
         fill_in 'Email', with: "#{user.email}"
         fill_in 'Password', with: "#{user.password}"
-        click_on 'Submit'
+        click_button 'Login'
 
         expect(current_path).to eq("/profile")
         expect(page).to have_content("Login Successful!")
@@ -51,9 +51,9 @@ describe "As a visitor" do
 
         fill_in 'Email', with: "#{merch_employee.email}"
         fill_in 'Password', with: "#{merch_employee.password}"
-        click_on 'Submit'
+        click_button 'Login'
 
-        expect(current_path).to eq("/merchant/")
+        expect(current_path).to eq("/merchant")
         expect(page).to have_content("Login Successful!")
       end
 
@@ -75,35 +75,37 @@ describe "As a visitor" do
 
         fill_in 'Email', with: "#{admin.email}"
         fill_in 'Password', with: "#{admin.password}"
-        click_on 'Submit'
+        click_button 'Login'
 
-        expect(current_path).to eq("/admin/")
+        expect(current_path).to eq("/admin")
         expect(page).to have_content("Login Successful!")
       end
     end
 
     describe "I enter invalid information" do
-      user = User.create!(name: 'Mike Dao',
-                          address: '123 Main St',
-                          city: 'Denver',
-                          state: 'CO',
-                          zip: '80428',
-                          email: 'mike@turing.com',
-                          password: 'ilikefood')
+      it do
+        user = User.create!(name: 'Mike Dao',
+                            address: '123 Main St',
+                            city: 'Denver',
+                            state: 'CO',
+                            zip: '80428',
+                            email: 'mike2@turing.com',
+                            password: 'ilikefood')
 
-      # allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(user)
+        # allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(user)
 
-      visit '/login'
-      fill_in 'Email', with: "#{user.email}"
-      fill_in 'Password', with: "ihatefood"
-      click_on 'Submit'
-      expect(page).to have_content('Invalid email or password, please try again.')
+        visit '/login'
+        fill_in 'Email', with: "#{user.email}"
+        fill_in 'Password', with: "ihatefood"
+        click_button 'Login'
+        expect(page).to have_content('Invalid email or password, please try again.')
 
-      visit '/login'
-      fill_in 'Email', with: "billy@nowhere.org"
-      fill_in 'Password', with: "#{user.password}"
-      click_on 'Submit'
-      expect(page).to have_content('Invalid email or password, please try again.')
+        visit '/login'
+        fill_in 'Email', with: "billy@nowhere.org"
+        fill_in 'Password', with: "#{user.password}"
+        click_button 'Login'
+        expect(page).to have_content('Invalid email or password, please try again.')
+      end
     end
   end
 end
