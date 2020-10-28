@@ -3,7 +3,7 @@ require 'rails_helper'
 describe "As a registered user, merchant, or admin" do
   describe "When I visit the logout path" do
     it "I am redirected to the home page of the site and I
-        see a flash message that indicates I am logged out" do
+        see a flash message that indicates I am logged out and cart is emptied" do
       user = User.create!(name: 'Mike Dao',
                           address: '123 Main St',
                           city: 'Denver',
