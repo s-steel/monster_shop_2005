@@ -18,7 +18,6 @@ class UsersController < ApplicationController
       render file: "/public/404"
     else
       @user = current_user
-      # require 'pry'; binding.pry
     end
   end
 

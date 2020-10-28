@@ -23,8 +23,7 @@ class SessionsController < ApplicationController
         when 'admin'
           redirect_to '/admin'
         when 'default'
-          # require 'pry'; binding.pry
-          redirect_to profile_path
+          redirect_to '/profile'
         end
       else
         flash[:error] = 'Invalid email or password, please try again.'
