@@ -22,7 +22,7 @@ describe User, type: :model do
                           city: 'Denver',
                           state: 'CO',
                           zip: '80428',
-                          email: 'mike@turing.com',
+                          email: 'mike5@turing.com',
                           password: 'ilikefood',
                           role: 0)
 
