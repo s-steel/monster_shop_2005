@@ -8,7 +8,7 @@ describe 'User navigation bar' do
                           address: '123 Main St',
                           city: 'Denver',
                           state: 'CO',
-                          zip: 80428,
+                          zip: '80428',
                           email: 'mike@turing.com',
                           password: 'ilikefood')
 
