@@ -1,9 +1,9 @@
 <h1>Login:</h1>
 
-<%= form_with url: '/login', method: :post do %>
+<%= form_with url: login_path, method: :post do %>
   <%= label_tag :email %>
   <%= text_field_tag :email %>
   <%= label_tag :password %>
-  <%= text_field_tag :password %>
+  <%= password_field_tag :password %>
   <%= submit_tag "Login" %>
 <% end %>
