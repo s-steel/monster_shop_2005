@@ -52,9 +52,9 @@ describe "As a registered user" do
       expect(find_field(:zip).value).to eq("#{@user.zip}")
       expect(find_field(:email).value).to eq("#{@user.email}")
 
-      fill_in :name, with "Harry Guy"
+      fill_in :name, with: "Harry Guy"
       click_button('Submit')
-      
+
       expect(current_path).to eq('/profile')
       expect(page).to have_content("Harry Guy")
     end
