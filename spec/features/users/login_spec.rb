@@ -136,6 +136,7 @@ describe 'As a visitor' do
         visit '/login'
 
         expect(page).to have_current_path '/profile'
+        expect(page).to have_content('You are already logged in!')
       end
 
       it 'as a merchant' do
@@ -144,6 +145,7 @@ describe 'As a visitor' do
         visit '/login'
 
         expect(page).to have_current_path '/merchant'
+        expect(page).to have_content('You are already logged in!')
       end
 
       it 'as an admin' do
@@ -152,6 +154,7 @@ describe 'As a visitor' do
         visit '/login'
 
         expect(page).to have_current_path '/admin'
+        expect(page).to have_content('You are already logged in!')
 
       end
     end
