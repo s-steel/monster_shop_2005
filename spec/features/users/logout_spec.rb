@@ -13,10 +13,17 @@ describe "As a registered user, merchant, or admin" do
                           password: 'ilikefood')
 
       allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(user)
+      bike_shop = Merchant.create(name: "Meg's Bike Shop", address: '123 Bike Rd.', city: 'Denver', state: 'CO', zip: 80203)
+      tire = bike_shop.items.create(name: "Gatorskins", description: "They'll never pop!", price: 100, image: "https://www.rei.com/media/4e1f5b05-27ef-4267-bb9a-14e35935f218?size=784x588", inventory: 12)
+
+      visit "/items/#{tire.id}"
+      click_button "Add To Cart"
+      expect(page).to have_content("Cart: 1")
 
       click_link "Logout"
       expect(current_path).to eq('/')
       expect(page).to have_content('You are logged out!')
+      expect(page).to have_content('Cart: 0')
     end
   end
 end
