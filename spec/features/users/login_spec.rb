@@ -107,5 +107,64 @@ describe "As a visitor" do
         expect(page).to have_content('Invalid email or password, please try again.')
       end
     end
+
+    describe 'I am already logged in' do
+      before :each do
+        @user = User.create!(name: 'Mike Dao',
+                             address: '123 Main St',
+                             city: 'Denver',
+                             state: 'CO',
+                             zip: '80428',
+                             email: 'usermike@turing.com',
+                             password: 'ilikefood',
+                             role: 0)
+
+        @admin = User.create!(name: 'Mike Dao',
+                              address: '123 Main St',
+                              city: 'Denver',
+                              state: 'CO',
+                              zip: '80428',
+                              email: 'adminmike@turing.com',
+                              password: 'ilikefood',
+                              role: 2)
+
+        @merchant = User.create!(name: 'Mike Dao',
+                                 address: '123 Main St',
+                                 city: 'Denver',
+                                 state: 'CO',
+                                 zip: '80428',
+                                 email: 'mike5@turing.com',
+                                 password: 'ilikefood',
+                                 role: 1)
+      end
+
+      it 'as a user' do
+        allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(@user)
+
+        visit '/login'
+
+        expect(page).to have_current_path '/profile'
+        expect(page).to have_content('You are already logged in!')
+      end
+
+      it 'as a merchant' do
+        allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(@merchant)
+
+        visit '/login'
+
+        expect(page).to have_current_path '/merchant'
+        expect(page).to have_content('You are already logged in!')
+      end
+
+      it 'as an admin' do
+        allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(@admin)
+
+        visit '/login'
+
+        expect(page).to have_current_path '/admin'
+        expect(page).to have_content('You are already logged in!')
+
+      end
+    end
   end
 end
