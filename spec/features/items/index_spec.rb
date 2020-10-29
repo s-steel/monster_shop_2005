@@ -92,32 +92,32 @@ RSpec.describe "Items Index Page" do
     it 'see statistics for top five and bottom five items by quantity purchased plus quantity bought' do
       visit '/items'
 
-      within '#stats-most-popular' do
+      within '.stats-most-popular' do
         expect(page).to have_content("Top Five Most Popular Items")
-        expect(page).to have_content(@handlebar.name)
+        expect(page).to have_content(@handlebars.name)
         expect(page).to have_content(@chain.name)
         expect(page).to have_content(@seat.name)
         expect(page).to have_content(@kong.name)
         expect(page).to have_content(@tire.name)
-        expect(page).to have_content(@handlebar.quantity)
-        expect(page).to have_content(@chain.quantity)
-        expect(page).to have_content(@seat.quantity)
-        expect(page).to have_content(@kong.quantity)
-        expect(page).to have_content(@tire.quantity)
+        expect(page).to have_content(@item_order_2.quantity)
+        expect(page).to have_content(@item_order_3.quantity)
+        expect(page).to have_content(@item_order_6.quantity)
+        expect(page).to have_content(@item_order_8.quantity)
+        expect(page).to have_content(@item_order_1.quantity)
       end
 
-      within '#stats-least-popular' do
+      within '.stats-least-popular' do
         expect(page).to have_content("Top Five Least Popular Items")
         expect(page).to have_content(@squeeky.name)
         expect(page).to have_content(@rope.name)
         expect(page).to have_content(@pedal.name)
         expect(page).to have_content(@pull_toy.name)
         expect(page).to have_content(@reflector.name)
-        expect(page).to have_content(@squeeky.quantity)
-        expect(page).to have_content(@rope.quantity)
-        expect(page).to have_content(@pedal.quantity)
-        expect(page).to have_content(@pull_toy.quantity)
-        expect(page).to have_content(@reflector.quantity)
+        expect(page).to have_content(@item_order_7.quantity)
+        expect(page).to have_content(@item_order_5.quantity)
+        expect(page).to have_content(@item_order_4.quantity)
+        expect(page).to have_content(@item_order_10.quantity)
+        expect(page).to have_content(@item_order_9.quantity)
       end
     end
   end
