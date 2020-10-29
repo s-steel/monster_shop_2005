@@ -18,5 +18,17 @@ describe "As a registered user" do
       visit '/profile'
       expect(page).to have_link("Change Password")
     end
+
+    it "When I click the change password link, I see a form with fields for a new password
+        and a new password confirmation" do
+      visit '/profile'
+      click_link 'Change Password'
+      # save_and_open_page
+      expect(current_path).to eq("/profile/change-password")
+      expect(page).to have_content("Change Your Password")
+      expect(page).to have_field('user[password]')
+      expect(page).to have_field('user[confirm_password]')
+      expect(page).to have_button('Submit')
+    end
   end
 end
