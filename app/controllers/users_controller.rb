@@ -2,14 +2,19 @@ class UsersController < ApplicationController
   def new; end
 
   def create
-    user = User.new(user_params)
-    begin
-      user.save!
-      session[:user_id] = user.id
-      flash[:success] = 'You are now registered and logged in'
-      redirect_to '/profile'
-    rescue ActiveRecord::RecordInvalid => e
-      create_error_response(e)
+    if params[:user][:password] == params[:user][:confirm_password]
+      user = User.new(user_params)
+      begin
+        user.save!
+        session[:user_id] = user.id
+        flash[:success] = 'You are now registered and logged in'
+        redirect_to '/profile'
+      rescue ActiveRecord::RecordInvalid => e
+        create_error_response(e)
+      end
+    else
+      flash[:error] = "Passwords must match."
+      redirect_to '/register'
     end
   end
 
@@ -33,8 +38,7 @@ class UsersController < ApplicationController
       city: params[:user][:city],
       state: params[:user][:state],
       zip: params[:user][:zip],
-      email: params[:user][:email],
-      password: @user.password_digest
+      email: params[:user][:email]
     )
     flash[:success] = "Profile updated successfully!"
     redirect_to '/profile'
@@ -44,15 +48,20 @@ class UsersController < ApplicationController
     @user = current_user
   end
 
-  # def update_password
-  #   require "pry"; binding.pry
-  #   @user = current_user
-  #   @user.update!(
-  #     password: params[:user][:password],
-  #     confirm_password: params[:user][:confirm_password]
-  #   )
-  #   redirect_to '/profile'
-  # end
+  def update_password
+    if params[:password] != params[:confirm_password]
+      flash.now[:error] = "Passwords do not match. Try again."
+      render :change_password
+    else
+      @user = current_user
+      @user.update!(
+        password: params[:password],
+        password_confirmation: params[:confirm_password]
+        )
+      flash[:success] = "Password updated successfully!"
+      redirect_to '/profile'
+    end
+  end
 
   private
 
@@ -63,7 +72,8 @@ class UsersController < ApplicationController
                                  :state,
                                  :zip,
                                  :email,
-                                 :password)
+                                 :password,
+                                 :password_confirmation)
   end
 
   def create_error_response(error)

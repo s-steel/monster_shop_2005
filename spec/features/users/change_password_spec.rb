@@ -9,7 +9,8 @@ describe "As a registered user" do
                           state: 'CO',
                           zip: '80428',
                           email: 'mike3@turing.com',
-                          password: 'ilikefood')
+                          password: 'ilikefood',
+                          password_confirmation: 'ilikefood')
 
       allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(user)
     end
@@ -26,8 +27,8 @@ describe "As a registered user" do
 
       expect(current_path).to eq("/profile/change-password")
       expect(page).to have_content("Change Your Password")
-      expect(page).to have_field('user[password]')
-      expect(page).to have_field('user[confirm_password]')
+      expect(page).to have_field(:password)
+      expect(page).to have_field(:confirm_password)
       expect(page).to have_button('Submit')
     end
 
@@ -36,8 +37,8 @@ describe "As a registered user" do
       visit '/profile'
       click_link 'Change Password'
 
-      fill_in 'user[password]', with: 'multipass'
-      fill_in 'user[confirm_password]', with: 'multipass'
+      fill_in :password, with: 'multipass'
+      fill_in :confirm_password, with: 'multipass'
       click_button 'Submit'
 
       expect(current_path).to eq("/profile")
