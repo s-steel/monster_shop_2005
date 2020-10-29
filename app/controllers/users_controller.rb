@@ -55,8 +55,7 @@ class UsersController < ApplicationController
     else
       @user = current_user
       @user.update!(
-        password: params[:password],
-        password_confirmation: params[:confirm_password]
+        password: params[:password]
         )
       flash[:success] = "Password updated successfully!"
       redirect_to '/profile'
@@ -72,8 +71,7 @@ class UsersController < ApplicationController
                                  :state,
                                  :zip,
                                  :email,
-                                 :password,
-                                 :password_confirmation)
+                                 :password)
   end
 
   def create_error_response(error)
