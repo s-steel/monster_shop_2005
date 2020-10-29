@@ -23,12 +23,25 @@ describe "As a registered user" do
         and a new password confirmation" do
       visit '/profile'
       click_link 'Change Password'
-      # save_and_open_page
+
       expect(current_path).to eq("/profile/change-password")
       expect(page).to have_content("Change Your Password")
       expect(page).to have_field('user[password]')
       expect(page).to have_field('user[confirm_password]')
       expect(page).to have_button('Submit')
+    end
+
+    it "When I fill the same password in both fields and submit, I am retured to my
+        profile page and see flash that the password is updated" do
+      visit '/profile'
+      click_link 'Change Password'
+
+      fill_in 'user[password]', with: 'multipass'
+      fill_in 'user[confirm_password]', with: 'multipass'
+      click_button 'Submit'
+
+      expect(current_path).to eq("/profile")
+      expect(page).to have_content("Password updated successfully!")
     end
   end
 end
