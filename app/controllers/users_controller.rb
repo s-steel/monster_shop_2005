@@ -27,13 +27,14 @@ class UsersController < ApplicationController
 
   def update
     @user = current_user
-    @user.update(
+    @user.update!(
       name: params[:user][:name],
       address: params[:user][:address],
       city: params[:user][:city],
       state: params[:user][:state],
       zip: params[:user][:zip],
-      email: params[:user][:email]
+      email: params[:user][:email],
+      password: @user.password_digest
     )
     flash[:success] = "Profile updated successfully!"
     redirect_to '/profile'
