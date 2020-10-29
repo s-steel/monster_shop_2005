@@ -11,13 +11,20 @@ describe "As a registered user" do
                           email: 'harold@email.com',
                           password: 'luggagecombo')
 
+      @user_2 = User.create!(name: 'Mike Dao',
+                          address: '123 Main St',
+                          city: 'Denver',
+                          state: 'CO',
+                          zip: '80428',
+                          email: 'mike3@turing.com',
+                          password: 'ilikefood')
+
+      allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(@user)
     end
 
     it "I see a form that's prepopulated with all current information besides password.
         After changing and submitting, I am returned to my profile page and see a flash
         that info is updated" do
-      allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(@user)
-
       visit '/profile/edit'
 
       expect(page).to have_content("Edit Profile")
@@ -34,6 +41,18 @@ describe "As a registered user" do
       expect(current_path).to eq('/profile')
       expect(page).to have_content("Harry Guy")
       expect(page).to have_content("Profile updated successfully!")
+    end
+
+    it "If I try to change my email address to one that belongs to an existing user,
+        I am returned to the profile edit page and see flash telling me the email
+        is taken" do
+      visit "/profile/edit"
+
+      fill_in 'user[email]', with: "mike3@turing.com"
+      click_button('Submit')
+
+      expect(current_path).to eq("/profile/edit")
+      expect(page).to have_content("Sorry, that email address is taken.")
     end
   end
 end
