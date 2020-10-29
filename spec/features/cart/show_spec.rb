@@ -60,9 +60,10 @@ RSpec.describe 'Cart show' do
         visit '/cart'
 
         @items_in_cart.each do |item|
+
           within "#cart-item-#{item.id}" do
-           expect(page).to have_button('Increase quantity')
-           expect(page).to have_button('Decrease quantity')
+           expect(page).to have_button('Increase Quantity')
+           expect(page).to have_button('Decrease Quantity')
           end
         end
 
@@ -125,7 +126,7 @@ RSpec.describe 'Cart show' do
           click_button('Increase Quantity')
         end
 
-        expect(page).to have_content('Cannot increase order above amount in inventory')
+        expect(page).to have_content('There are no more items in stock!')
 
         within "#cart-item-#{@paper.id}" do
           expect(page).to have_content('1')
