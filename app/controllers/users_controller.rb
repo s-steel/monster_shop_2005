@@ -44,6 +44,16 @@ class UsersController < ApplicationController
     @user = current_user
   end
 
+  # def update_password
+  #   require "pry"; binding.pry
+  #   @user = current_user
+  #   @user.update!(
+  #     password: params[:user][:password],
+  #     confirm_password: params[:user][:confirm_password]
+  #   )
+  #   redirect_to '/profile'
+  # end
+
   private
 
   def user_params
