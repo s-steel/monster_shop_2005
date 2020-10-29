@@ -52,7 +52,7 @@ describe "As a registered user" do
       click_button('Submit')
 
       expect(current_path).to eq("/profile/edit")
-      expect(page).to have_content("Sorry, that email address is taken.")
+      expect(page).to have_content("This email is already registered. Please use a new email.")
     end
   end
 end
