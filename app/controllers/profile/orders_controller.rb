@@ -1,7 +1,6 @@
 class Profile::OrdersController < ApplicationController
 
   def index
-    binding.pry
-    @profile = Profile.find
+    @orders = Order.all
   end
 end
