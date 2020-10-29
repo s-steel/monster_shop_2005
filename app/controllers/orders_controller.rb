@@ -1,7 +1,7 @@
 class OrdersController <ApplicationController
 
   def new
-
+    @user = current_user
   end
 
   def show
