@@ -1,3 +1,25 @@
+<h1>Order <%= @order.id %></h1>
+
+<section class = "order-info">
+  <!-- <h1 align = "center">Order Info</h1> -->
+  <table>
+    <tr>
+      <th>Id</th>
+      <th>Date Created</th>
+      <th>Date Updated</th>
+      <th>Order Status</th>
+
+    </tr>
+    <tr>
+      <td><p><%= @order.id %> </p></td>
+      <td><p><%= @order.created_at.strftime('%m/%d/%Y') %> </p></td>
+      <td><p><%= @order.updated_at.strftime('%m/%d/%Y') %> </p></td>
+      <td><p><%= @order.status %> </p></td>
+
+    </tr>
+  </table>
+</section>
+
 <section class = "shipping-address">
   <h1 align = "center">Shipping Info</h1>
   <table>
@@ -19,6 +41,7 @@
 </section>
 
 <h1 align = "center">Order Info</h1>
+<h3 align = "center">Item Count: <%= @order.items.count %></h3>
 <center>
   <table>
     <tr>

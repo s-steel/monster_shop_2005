@@ -60,7 +60,7 @@ RSpec.describe('Order Creation') do
 
       click_on("Order #{new_order.id}")
 
-      expect(current_path).to eq("/orders/#{new_order.id}")
+      expect(current_path).to eq("/profile/orders/#{new_order.id}")
 
       within '.shipping-address' do
         expect(page).to have_content(name)
