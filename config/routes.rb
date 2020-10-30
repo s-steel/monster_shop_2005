@@ -43,6 +43,9 @@ Rails.application.routes.draw do
   get '/profile/edit', to: 'users#edit'
   patch '/profile', to: 'users#update', as: :user
 
+  get '/profile/change-password', to: 'users#change_password'
+  patch '/profile/change-password', to: 'users#update_password'
+
   get '/login', to: 'sessions#new'
   post '/login', to: 'sessions#create'
   get '/logout', to: 'sessions#destroy'
