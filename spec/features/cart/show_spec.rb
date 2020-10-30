@@ -35,7 +35,7 @@ RSpec.describe 'Cart show' do
         click_on 'Empty Cart'
         expect(current_path).to eq('/cart')
         expect(page).to_not have_css('.cart-items')
-        expect(page).to have_content('Cart is currently empty')
+        expect(page).to have_content('cart is currently empty')
       end
 
       it 'I see all items Ive added to my cart' do
@@ -151,7 +151,7 @@ RSpec.describe 'Cart show' do
       it 'I see a message saying my cart is empty' do
         visit '/cart'
         expect(page).to_not have_css('.cart-items')
-        expect(page).to have_content('Cart is currently empty')
+        expect(page).to have_content('cart is currently empty')
       end
 
       it 'I do NOT see the link to empty my cart' do
