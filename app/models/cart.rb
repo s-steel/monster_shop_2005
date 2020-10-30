@@ -5,6 +5,14 @@ class Cart
     @contents = contents
   end
 
+  def [](key)
+    @contents[key]
+  end
+
+  def []=(key, value)
+    @contents[key] = value
+  end
+
   def add_item(item)
     @contents[item] = 0 if !@contents[item]
     @contents[item] += 1

@@ -27,6 +27,10 @@ class UsersController < ApplicationController
     end
   end
 
+  def orders
+    @user = current_user
+  end
+
   def edit
     @user = current_user
   end

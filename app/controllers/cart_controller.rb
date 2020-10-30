@@ -1,12 +1,11 @@
 class CartController < ApplicationController
-
   before_action :deny_admin
 
   def add_item
     item = Item.find(params[:item_id])
     cart.add_item(item.id.to_s)
     flash[:success] = "#{item.name} was successfully added to your cart"
-    redirect_to "/items"
+    redirect_to '/items'
   end
 
   def show
@@ -23,11 +22,33 @@ class CartController < ApplicationController
     redirect_to '/cart'
   end
 
-private
+  def change_amount
+    item = Item.find(params[:item_id])
+    case params[:direction]
+    when 'increase'
+
+      if cart[item.id.to_s] < item.inventory
+        cart[item.id.to_s] += 1
+      else
+        flash[:error] = 'There are no more items in stock!'
+      end
+      redirect_to '/cart'
+
+    when 'decrease'
+
+      cart[item.id.to_s] -= 1
+      if cart[item.id.to_s] <= 0
+        remove_item
+      else
+        redirect_to '/cart'
+      end
+
+    end
+  end
+
+  private
 
   def deny_admin
-    if current_admin?
-      render file: '/public/404'
-    end
-  end 
+    render file: '/public/404' if current_admin?
+  end
 end
