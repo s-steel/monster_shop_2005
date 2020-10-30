@@ -18,12 +18,12 @@ class SessionsController < ApplicationController
         session[:user_id] = user.id
         flash[:success] = "Login Successful!"
         case user.role
-        when 'default'
-          redirect_to '/profile'
         when 'merchant_employee'
           redirect_to '/merchant'
         when 'admin'
           redirect_to '/admin'
+        when 'default'
+          redirect_to '/profile'
         end
       else
         flash[:error] = 'Invalid email or password, please try again.'

@@ -17,7 +17,7 @@ describe User, type: :model do
 
   describe 'relationships' do
     it { should have_many :orders }
-  end 
+  end
 
   describe "roles" do
     it "can be created as a default user" do
