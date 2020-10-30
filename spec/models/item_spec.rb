@@ -48,7 +48,7 @@ describe Item, type: :model do
                           city: 'Lakewood',
                           state: 'CO',
                           zip: '80328',
-                          email: 'shreddedharrold@email.com',
+                          email: 'shreddeld@email.com',
                           password: 'luggagecombo')
       order = Order.create(name: 'Meg', address: '123 Stang Ave', city: 'Hershey', state: 'PA', zip: 17033, user_id: user.id)
       order.item_orders.create(item: @chain, price: @chain.price, quantity: 2)

@@ -8,7 +8,7 @@ describe 'Order show page' do
                           city: 'Lakewood',
                           state: 'CO',
                           zip: '80328',
-                          email: 'shreddedharrold@email.com',
+                          email: 'jyddedharrold@email.com',
                           password: 'luggagecombo')
 
       allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(@user)

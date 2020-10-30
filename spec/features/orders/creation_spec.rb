@@ -29,6 +29,15 @@ RSpec.describe("Order Creation") do
     end
 
     it 'I can create a new order' do
+      user = User.create!(name: 'Harold Guy',
+                          address: '123 Macho St',
+                          city: 'Lakewood',
+                          state: 'CO',
+                          zip: '80328',
+                          email: 'sjbld@email.com',
+                          password: 'luggagecombo')
+      allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(user)
+
       name = "Bert"
       address = "123 Sesame St."
       city = "NYC"
@@ -89,6 +98,14 @@ RSpec.describe("Order Creation") do
     end
 
     it 'i cant create order if info not filled out' do
+      user = User.create!(name: 'Harold Guy',
+                          address: '123 Macho St',
+                          city: 'Lakewood',
+                          state: 'CO',
+                          zip: '80328',
+                          email: 'shredfjbld@email.com',
+                          password: 'luggagecombo')
+      allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(user)
       name = ""
       address = "123 Sesame St."
       city = "NYC"

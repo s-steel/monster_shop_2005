@@ -18,8 +18,14 @@ RSpec.describe "Items Index Page" do
       @kong = @brian.items.create(name: "Kong", description: "Great", price: 11, image: "https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcS2YQS3IP7e4mtm-0y_erFD2slut1LxzZsPPA&usqp=CAU", inventory: 443)
       @rope = @brian.items.create(name: "Rope", description: "Strong", price: 5, image: "https://bendpetexpress.com/wp-content/uploads/2016/08/dog_toys_mammoth_rope_2knot.jpg ", inventory: 225)
       @squeeky = @brian.items.create(name: "Squeeky Toy", description: "Pretty Good", price: 12, image: "https://img.chewy.com/is/image/catalog/174770_Main._AC_SL400_V1572616735_.jpg", inventory: 274)
-
-      @order = Order.create!(name: 'order', address: '123 Main St', city: 'Here', state: 'CO', zip: '58421')
+      @user = User.create!(name: 'Harold Guy',
+                          address: '123 Macho St',
+                          city: 'Lakewood',
+                          state: 'CO',
+                          zip: '80328',
+                          email: 'shrold@email.com',
+                          password: 'luggagecombo')
+      @order = Order.create!(name: 'order', address: '123 Main St', city: 'Here', state: 'CO', zip: '58421', user_id: @user.id)
       @item_order_1 = @order.item_orders.create!(item_id: @tire.id, price: @tire.price, quantity: 100)
       @item_order_2 = @order.item_orders.create!(item_id: @handlebars.id, price: @handlebars.price, quantity: 200)
       @item_order_3 = @order.item_orders.create!(item_id: @chain.id, price: @chain.price, quantity: 150)

@@ -24,7 +24,7 @@ describe Order, type: :model do
                           city: 'Lakewood',
                           state: 'CO',
                           zip: '80328',
-                          email: 'shreddedharrold@email.com',
+                          email: 'eddedharrold@email.com',
                           password: 'luggagecombo')
 
       @tire = @meg.items.create(name: "Gatorskins", description: "They'll never pop!", price: 100, image: "https://www.rei.com/media/4e1f5b05-27ef-4267-bb9a-14e35935f218?size=784x588", inventory: 12)

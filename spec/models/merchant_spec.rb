@@ -22,7 +22,7 @@ describe Merchant, type: :model do
                           city: 'Lakewood',
                           state: 'CO',
                           zip: '80328',
-                          email: 'shreddedharrold@email.com',
+                          email: 'shrarrold@email.com',
                           password: 'luggagecombo')
     end
     it 'no_orders' do
