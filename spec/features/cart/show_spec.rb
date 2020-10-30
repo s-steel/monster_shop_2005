@@ -17,6 +17,16 @@ RSpec.describe 'Cart show' do
         visit "/items/#{@pencil.id}"
         click_on 'Add To Cart'
         @items_in_cart = [@paper, @tire, @pencil]
+
+        @user = User.create!(name: 'Mike Dao',
+                             address: '123 Main St',
+                             city: 'Denver',
+                             state: 'CO',
+                             zip: '80428',
+                             email: 'mike3@turing.com',
+                             password: 'ilikefood')
+
+        allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(@user)
       end
 
       it 'I can empty my cart by clicking a link' do
@@ -60,10 +70,9 @@ RSpec.describe 'Cart show' do
         visit '/cart'
 
         @items_in_cart.each do |item|
-
           within "#cart-item-#{item.id}" do
-           expect(page).to have_button('Increase Quantity')
-           expect(page).to have_button('Decrease Quantity')
+            expect(page).to have_button('Increase Quantity')
+            expect(page).to have_button('Decrease Quantity')
           end
         end
 

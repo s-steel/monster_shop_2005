@@ -1,0 +1,5 @@
+<h1>All Orders:</h1>
+
+<% @user.orders.each do |order| %>
+<h3><a href="<%= orders_path(order.id) %>">Order <%= order.id %></a></h3>
+<% end  %>
