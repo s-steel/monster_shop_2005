@@ -16,9 +16,7 @@ describe User, type: :model do
   end
 
   describe 'relationships' do
-    it do
-      should have_many :orders
-    end
+    it { should have_many :orders }
   end
 
   describe "roles" do
