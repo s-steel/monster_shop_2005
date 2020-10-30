@@ -15,6 +15,10 @@ describe User, type: :model do
     end
   end
 
+  describe 'relationships' do
+    it { should have_many :orders }
+  end 
+
   describe "roles" do
     it "can be created as a default user" do
       user = User.create!(name: 'Mike Dao',

@@ -42,6 +42,8 @@ describe 'Order show page' do
       fill_in :state, with: state
       fill_in :zip, with: zip
       click_button "Create Order"
+
+      @order = Order.last
     end
 
     it 'user profile displays link' do
@@ -49,6 +51,23 @@ describe 'Order show page' do
       expect(page).to have_link('My Orders')
       click_link('My Orders')
       expect(current_path).to eq('/profile/orders')
+    end
+
+    it 'visit /profile/orders and see every order the user has made' do
+      visit '/profile/orders'
+      expect(page).to have_content('Your Orders:')
+      expect(page).to have_content('Order ID:')
+      expect(page).to have_content('Date order was made:')
+      expect(page).to have_content('Date order was last updated:')
+      expect(page).to have_content('Order Status:')
+      expect(page).to have_content('Quantity of items in order:')
+      expect(page).to have_content('Grand total:')
+      expect(page).to have_content(@order.id)
+      expect(page).to have_content(@order.created_at)
+      expect(page).to have_content(@order.updated_at)
+      expect(page).to have_content(@order.status)
+      expect(page).to have_content(@order.items.count)
+      expect(page).to have_content(@order.grandtotal)
     end
   end
 end
