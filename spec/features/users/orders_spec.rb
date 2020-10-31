@@ -43,5 +43,12 @@ describe 'Order show page' do
       expect(page).to have_link("Order #{@order_1.id}")
       expect(page).to have_link("Order #{@order_2.id}")
     end
+
+    it "I click on a link for an order's show page and I'm rerouted to '/profile/orders/:id'" do
+      visit '/profile/orders'
+
+      click_link("Order #{@order_1.id}")
+      expect(current_path).to eq("/profile/orders/#{@order_1.id}")
+    end
   end
 end
