@@ -61,5 +61,10 @@ describe 'Order show page' do
         expect(page).to have_content(@item_order_2.quantity)
       end
     end
+
+    it "I see a link to cancel the order" do
+      visit profile_orders_show_path(@order_1.id)
+      expect(page).to have_link("Cancel Order")
+    end
   end
 end
