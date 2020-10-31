@@ -20,17 +20,16 @@ describe 'Order show page' do
       @pencil = @mike.items.create(name: 'Yellow Pencil', description: 'You can write on paper with it!', price: 2, image: 'https://images-na.ssl-images-amazon.com/images/I/31BlVr01izL._SX425_.jpg', inventory: 100)
 
       @order_1 = Order.create!(name: 'order', address: '123 Main St', city: 'Here', state: 'CO', zip: '58421', user_id: @user.id)
-      item_order_1 = @order_1.item_orders.create!(item_id: @tire.id, price: @tire.price, quantity: 2)
-      item_order_2 = @order_1.item_orders.create!(item_id: @paper.id, price: @paper.price, quantity: 3)
+      @item_order_1 = @order_1.item_orders.create!(item_id: @tire.id, price: @tire.price, quantity: 2)
+      @item_order_2 = @order_1.item_orders.create!(item_id: @paper.id, price: @paper.price, quantity: 3)
 
       @order_2 = Order.create!(name: 'second order', address: '754 Main St', city: 'There', state: 'WY', zip: '12421', user_id: @user.id)
-      item_order_3 = @order_2.item_orders.create!(item_id: @paper.id, price: @paper.price, quantity: 1)
-      item_order_4 = @order_2.item_orders.create!(item_id: @pencil.id, price: @pencil.price, quantity: 2)
+      @item_order_3 = @order_2.item_orders.create!(item_id: @paper.id, price: @paper.price, quantity: 1)
+      @item_order_4 = @order_2.item_orders.create!(item_id: @pencil.id, price: @pencil.price, quantity: 2)
     end
 
     it 'visit a specific order and see its info' do
       visit profile_orders_show_path(@order_1.id)
-
       # expect(page).to have_content('Order ID:')
       # expect(page).to have_content('Date order was made:')
       # expect(page).to have_content('Date order was last updated:')
@@ -43,6 +42,24 @@ describe 'Order show page' do
       expect(page).to have_content(@order_1.status)
       expect(page).to have_content(@order_1.items.count)
       expect(page).to have_content("$#{@order_1.grandtotal}")
+
+      within "#item-#{@item_order_1.item_id}" do
+        expect(page).to have_content(@item_order_1.item.name)
+        expect(page).to have_content(@item_order_1.item.description)
+        expect(page).to have_content(@item_order_1.item.image)
+        expect(page).to have_content(@item_order_1.item.price)
+        expect(page).to have_content(@item_order_1.subtotal)
+        expect(page).to have_content(@item_order_1.quantity)
+      end
+
+      within "#item-#{@item_order_2.id}" do
+        expect(page).to have_content(@item_order_2.item.name)
+        expect(page).to have_content(@item_order_2.item.description)
+        expect(page).to have_content(@item_order_2.item.image)
+        expect(page).to have_content(@item_order_2.item.price)
+        expect(page).to have_content(@item_order_2.subtotal)
+        expect(page).to have_content(@item_order_2.quantity)
+      end
     end
   end
 end
