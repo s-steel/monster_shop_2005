@@ -26,4 +26,14 @@ class Order <ApplicationRecord
   def total_item_count
     self.item_orders.sum(:quantity)
   end
+
+  def cancel_order
+    self.status = 3
+  end
+
+  def unfulfill_items
+    self.item_orders.each do |item_order|
+      item_order.status = 'unfulfilled'
+    end
+  end
 end

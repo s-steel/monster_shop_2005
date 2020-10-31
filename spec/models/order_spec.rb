@@ -47,5 +47,15 @@ describe Order, type: :model do
     it "totals all items in order" do
       expect(@order_1.total_item_count).to eq(5)
     end
+
+    it "can be cancelled" do
+      @order_1.cancel_order
+      expect(@order_1.status).to eq('cancelled')
+    end
+
+    it "items in order can be unfulfilled" do
+      @order_1.unfulfill_items
+      require "pry"; binding.pry
+    end
   end
 end

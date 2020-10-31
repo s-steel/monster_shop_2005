@@ -42,7 +42,6 @@ Rails.application.routes.draw do
 
   get '/profile/orders', to: 'users#orders', as: :profile_orders
   get '/profile/orders/:id', to: 'orders#show', as: :profile_orders_show
-  delete '/profile/orders/:id', to: 'orders#destroy', as: :profile_orders_destroy
   get '/profile/edit', to: 'users#edit'
   patch '/profile', to: 'users#update', as: :user
 
@@ -50,8 +49,9 @@ Rails.application.routes.draw do
   patch '/profile/change-password', to: 'users#update_password'
   # Plz refactor inside namespace
   # namespace :profile do
-
-
+namespace :profile do
+  patch '/orders/:id', to: 'orders#update', as: :profile_orders_cancel
+end
   # end
 
 
