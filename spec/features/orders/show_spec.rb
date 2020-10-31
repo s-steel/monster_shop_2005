@@ -40,22 +40,22 @@ describe 'Order show page' do
       expect(page).to have_content(@order_1.created_at.strftime('%m/%d/%Y'))
       expect(page).to have_content(@order_1.updated_at.strftime('%m/%d/%Y'))
       expect(page).to have_content(@order_1.status)
-      expect(page).to have_content(@order_1.items.count)
+      expect(page).to have_content(@order_1.total_item_count)
       expect(page).to have_content("$#{@order_1.grandtotal}")
 
       within "#item-#{@item_order_1.item_id}" do
         expect(page).to have_content(@item_order_1.item.name)
         expect(page).to have_content(@item_order_1.item.description)
-        expect(page).to have_content(@item_order_1.item.image)
+        expect(page).to have_xpath("//img[contains(@src, '#{@item_order_1.item.image}')]")
         expect(page).to have_content(@item_order_1.item.price)
         expect(page).to have_content(@item_order_1.subtotal)
         expect(page).to have_content(@item_order_1.quantity)
       end
 
-      within "#item-#{@item_order_2.id}" do
+      within "#item-#{@item_order_2.item_id}" do
         expect(page).to have_content(@item_order_2.item.name)
         expect(page).to have_content(@item_order_2.item.description)
-        expect(page).to have_content(@item_order_2.item.image)
+        expect(page).to have_xpath("//img[contains(@src, '#{@item_order_2.item.image}')]")
         expect(page).to have_content(@item_order_2.item.price)
         expect(page).to have_content(@item_order_2.subtotal)
         expect(page).to have_content(@item_order_2.quantity)

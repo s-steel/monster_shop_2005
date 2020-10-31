@@ -22,4 +22,8 @@ class Order <ApplicationRecord
   def date_updated
     updated_at.strftime('%m/%d/%Y')
   end
+
+  def total_item_count
+    self.item_orders.sum(:quantity)
+  end
 end

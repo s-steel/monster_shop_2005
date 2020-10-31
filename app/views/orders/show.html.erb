@@ -41,10 +41,12 @@
 </section>
 
 <h1 align = "center">Order Info</h1>
-<h3 align = "center">Item Count: <%= @order.items.count %></h3>
+<h3 align = "center">Item Count: <%= @order.total_item_count %></h3>
 <center>
   <table>
     <tr>
+      <th>Photo</th>
+      <th>Description</th>
       <th>Item</th>
       <th>Sold By</th>
       <th>Price</th>
@@ -54,6 +56,8 @@
   <% @order.item_orders.each do |item_order|%>
     <tr>
     <section id = "item-<%=item_order.item_id%>">
+        <td><%= image_tag item_order.item.image, width:"10%" %></td>
+        <td><p><%= item_order.item.description %></p></td>
         <td><p><%=link_to item_order.item.name, "/items/#{item_order.item_id}"%></p></td>
         <td><p><%= link_to item_order.item.merchant.name, "/merchants/#{item_order.item.merchant.id}"%></p></td>
         <td><p><%= number_to_currency(item_order.price)%></p></td>
