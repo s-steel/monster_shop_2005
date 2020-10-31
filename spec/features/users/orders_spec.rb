@@ -25,24 +25,23 @@ describe 'Order show page' do
 
       @order_2 = Order.create!(name: 'second order', address: '754 Main St', city: 'There', state: 'WY', zip: '12421', user_id: @user.id)
       item_order_3 = @order_2.item_orders.create!(item_id: @paper.id, price: @paper.price, quantity: 1)
-      item_order_4 = @order_2.item_orders.create!(item_id: @pencil.id, price: @pencil.price, quantity: 2)
+      item_order_3 = @order_2.item_orders.create!(item_id: @pencil.id, price: @pencil.price, quantity: 2)
     end
 
-    it 'visit a specific order and see its info' do
-      visit profile_orders_show_path(@order_1.id)
+    it 'user profile displays link' do
+      visit '/profile'
+      expect(page).to have_link('My Orders')
+      click_link('My Orders')
+      expect(current_path).to eq('/profile/orders')
+    end
 
-      # expect(page).to have_content('Order ID:')
-      # expect(page).to have_content('Date order was made:')
-      # expect(page).to have_content('Date order was last updated:')
-      # expect(page).to have_content('Order Status:')
-      # expect(page).to have_content('Quantity of items in order:')
-      # expect(page).to have_content('Grand total:')
-      expect(page).to have_content(@order_1.id)
-      expect(page).to have_content(@order_1.created_at.strftime('%m/%d/%Y'))
-      expect(page).to have_content(@order_1.updated_at.strftime('%m/%d/%Y'))
-      expect(page).to have_content(@order_1.status)
-      expect(page).to have_content(@order_1.items.count)
-      expect(page).to have_content("$#{@order_1.grandtotal}")
+    it 'visit /profile/orders and see every order the user has made' do
+      visit '/profile/orders'
+
+      expect(page).to have_content('Your Orders:')
+
+      expect(page).to have_link("Order #{@order_1.id}")
+      expect(page).to have_link("Order #{@order_2.id}")
     end
   end
 end

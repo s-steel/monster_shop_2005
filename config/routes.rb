@@ -35,22 +35,23 @@ Rails.application.routes.draw do
 
   get '/orders/new', to: 'orders#new'
   post '/orders', to: 'orders#create'
-  get '/orders/:id', to: 'orders#show', as: :order
 
   get '/register', to: 'users#new'
   post '/register', to: 'users#create'
-
   get '/profile', to: 'users#show'
+
   get '/profile/orders', to: 'users#orders', as: :profile_orders
+  get '/profile/orders/:id', to: 'orders#show', as: :profile_orders_show
   get '/profile/edit', to: 'users#edit'
   patch '/profile', to: 'users#update', as: :user
 
-  namespace :profile do
-    resources :orders, only: [:index]
+  get '/profile/change-password', to: 'users#change_password'
+  patch '/profile/change-password', to: 'users#update_password'
+  # Plz refactor inside namespace
+  # namespace :profile do
 
-    get '/change-password', to: 'users#change_password'
-    patch '/change-password', to: 'users#update_password'
-  end
+
+  # end
 
 
   get '/login', to: 'sessions#new'

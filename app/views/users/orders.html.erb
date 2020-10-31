@@ -1,5 +1,5 @@
-<h1>All Orders:</h1>
+<h1>Your Orders:</h1>
 
 <% @user.orders.each do |order| %>
-<h3><a href="<%= order_path(order.id) %>">Order <%= order.id %></a></h3>
+<h3><a href="<%= profile_orders_show_path(order.id) %>">Order <%= order.id %></a></h3>
 <% end  %>
