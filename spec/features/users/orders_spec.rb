@@ -48,7 +48,6 @@ describe 'Order show page' do
       visit '/profile/orders'
 
       click_link("Order #{@order_1.id}")
-      save_and_open_page
       expect(current_path).to eq("/profile/orders/#{@order_1.id}")
     end
   end
