@@ -112,7 +112,8 @@ describe "As an admin user" do
 
     it "Orders are sorted by status: packaged, pending, shipped, cancelled" do
       visit "/admin"
-
+      require "pry"; binding.pry
+save_and_open_page
       within(:xpath, "//table/tr[1]/td") do
         page.should have_content("#{@user_3.name}")
       end

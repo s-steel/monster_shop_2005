@@ -1,14 +1,68 @@
 <h1>All Orders</h1>
 
-<section class = "order-info">
+<section class = "packaged-order-info">
+  <h2>Packaged</h2>
   <table>
     <tr>
       <th>Name of User</th>
       <th>Order ID</th>
       <th>Date Created</th>
-
     </tr>
-    <% @orders.each do |order| %>
+    <% @orders.where(status: 'packaged').each do |order| %>
+    <tr id="order-<%= order.id %>">
+      <td><p><%= link_to "#{order.user.name}", "/admin/users/#{order.user.id}" %> </p></td>
+      <td><p><%= order.id %> </p></td>
+      <td><p><%= order.created_at.strftime('%m/%d/%Y') %> </p></td>
+    </tr>
+    <% end %>
+  </table>
+</section>
+
+<section class = "pending-order-info">
+  <h2>Pending</h2>
+  <table>
+    <tr>
+      <th>Name of User</th>
+      <th>Order ID</th>
+      <th>Date Created</th>
+    </tr>
+    <% @orders.where(status: 'pending').each do |order| %>
+    <tr id="order-<%= order.id %>">
+      <td><p><%= link_to "#{order.user.name}", "/admin/users/#{order.user.id}" %> </p></td>
+      <td><p><%= order.id %> </p></td>
+      <td><p><%= order.created_at.strftime('%m/%d/%Y') %> </p></td>
+    </tr>
+    <% end %>
+  </table>
+</section>
+
+<section class = "shipped-order-info">
+  <h2>Shipped</h2>
+  <table>
+    <tr>
+      <th>Name of User</th>
+      <th>Order ID</th>
+      <th>Date Created</th>
+    </tr>
+    <% @orders.where(status: 'shipped').each do |order| %>
+    <tr id="order-<%= order.id %>">
+      <td><p><%= link_to "#{order.user.name}", "/admin/users/#{order.user.id}" %> </p></td>
+      <td><p><%= order.id %> </p></td>
+      <td><p><%= order.created_at.strftime('%m/%d/%Y') %> </p></td>
+    </tr>
+    <% end %>
+  </table>
+</section>
+
+<section class = "cancelled-order-info">
+  <h2>Cancelled</h2>
+  <table>
+    <tr>
+      <th>Name of User</th>
+      <th>Order ID</th>
+      <th>Date Created</th>
+    </tr>
+    <% @orders.where(status: 'cancelled').each do |order| %>
     <tr id="order-<%= order.id %>">
       <td><p><%= link_to "#{order.user.name}", "/admin/users/#{order.user.id}" %> </p></td>
       <td><p><%= order.id %> </p></td>
