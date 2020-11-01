@@ -176,7 +176,15 @@ describe "As an admin user" do
       expect(@order_3.status).to eq("shipped")
     end
 
-    it 'user can no loger cancel a shipped order'
+    it 'user can no loger cancel a shipped order' do
+      visit profile_orders_show_path(@order_3.id)
+      expect(page).to_not have_link("Cancel Order")
 
+      visit profile_orders_show_path(@order_1.id)
+      expect(page).to have_link("Cancel Order")
+
+      visit profile_orders_show_path(@order_2.id)
+      expect(page).to_not have_link("Cancel Order")
+    end
   end
 end

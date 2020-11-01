@@ -15,7 +15,6 @@
       <td><p><%= order.created_at.strftime('%m/%d/%Y') %> </p></td>
       <p style='float: left; width: 70px'><%= button_to("Ship", "/admin/orders/#{order.id}", method: :patch) %></p>
     </tr>
-    <% binding.pry %>
     <% end %>
   </table>
 </section>
