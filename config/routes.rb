@@ -67,6 +67,6 @@ end
   end
 
   namespace :merchant do
-    get '/', to: 'dashboard#index'
+    get '/', to: 'dashboard#show'
   end
 end

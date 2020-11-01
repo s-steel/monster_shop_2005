@@ -20,7 +20,13 @@ describe "As a merchant employee" do
     end
     it "I see the name and full address of the merchant I work for" do
       visit "/merchant"
-      save_and_open_page
+
+      expect(page).to have_content("Merchant Dashboard")
+      expect(page).to have_content("Brian's Bike Shop")
+      expect(page).to have_content("#{@bike_shop.address}")
+      expect(page).to have_content("#{@bike_shop.city}")
+      expect(page).to have_content("#{@bike_shop.state}")
+      expect(page).to have_content("#{@bike_shop.zip}")
     end
   end
 end
