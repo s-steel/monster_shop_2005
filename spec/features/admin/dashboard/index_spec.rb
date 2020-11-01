@@ -58,20 +58,20 @@ describe "As an admin user" do
       @paper = @mike.items.create(name: 'Lined Paper', description: 'Great for writing on!', price: 20, image: 'https://cdn.vertex42.com/WordTemplates/images/printable-lined-paper-wide-ruled.png', inventory: 3)
       @pencil = @mike.items.create(name: 'Yellow Pencil', description: 'You can write on paper with it!', price: 2, image: 'https://images-na.ssl-images-amazon.com/images/I/31BlVr01izL._SX425_.jpg', inventory: 100)
 
-      @order_1 = Order.create!(name: 'order', address: '123 Main St', city: 'Here', state: 'CO', zip: '58421', user_id: @user_1.id)
+      @order_1 = Order.create!(name: 'order', address: '123 Main St', city: 'Here', state: 'CO', zip: '58421', user_id: @user_1.id, status: 'pending')
       @item_order_1 = @order_1.item_orders.create!(item_id: @tire.id, price: @tire.price, quantity: 2)
       @item_order_2 = @order_1.item_orders.create!(item_id: @paper.id, price: @paper.price, quantity: 3)
 
-      @order_2 = Order.create!(name: 'second order', address: '754 Main St', city: 'There', state: 'WY', zip: '12421', user_id: @user_2.id)
+      @order_2 = Order.create!(name: 'second order', address: '754 Main St', city: 'There', state: 'WY', zip: '12421', user_id: @user_2.id, status: 'shipped')
       @item_order_3 = @order_2.item_orders.create!(item_id: @paper.id, price: @paper.price, quantity: 1)
       @item_order_4 = @order_2.item_orders.create!(item_id: @pencil.id, price: @pencil.price, quantity: 2)
 
-      @order_3 = Order.create!(name: 'Lanceman', address: '333 Bikeshop Ln.', city: 'Los Angeles', state: 'CA', zip: '90210', user_id: @user_3.id)
+      @order_3 = Order.create!(name: 'Lanceman', address: '333 Bikeshop Ln.', city: 'Los Angeles', state: 'CA', zip: '90210', user_id: @user_3.id, status: 'packaged')
       @item_order_5 = @order_3.item_orders.create!(item_id: @pedal.id, price: @pedal.price, quantity: 2)
       @item_order_6 = @order_3.item_orders.create!(item_id: @reflector.id, price: @reflector.price, quantity: 1)
       @item_order_7 = @order_3.item_orders.create!(item_id: @chain.id, price: @chain.price, quantity: 1)
 
-      @order_4 = Order.create!(name: 'El Barto', address: '1431 Evergreen Terrace', city: 'Springfield', state: 'VT', zip: '84739', user_id: @user_4.id)
+      @order_4 = Order.create!(name: 'El Barto', address: '1431 Evergreen Terrace', city: 'Springfield', state: 'VT', zip: '84739', user_id: @user_4.id, status: 'cancelled')
       @item_order_8 = @order_4.item_orders.create!(item_id: @reflector.id, price: @reflector.price, quantity: 300)
       @item_order_9 = @order_4.item_orders.create!(item_id: @chain.id, price: @chain.price, quantity: 1)
     end
@@ -108,6 +108,26 @@ describe "As an admin user" do
       visit "/admin"
       click_link("#{@order_1.user.name}")
       expect(current_path).to eq("/admin/users/#{@user_1.id}")
+    end
+
+    it "Orders are sorted by status: packaged, pending, shipped, cancelled" do
+      visit "/admin"
+
+      within(:xpath, "//table/tr[1]/td") do
+        page.should have_content("#{@user_3.name}")
+      end
+
+      within(:xpath, "//table/tr[2]/td") do
+        page.should have_content("#{@user_1.name}")
+      end
+
+      within(:xpath, "//table/tr[3]/td") do
+        page.should have_content("#{@user_2.name}")
+      end
+
+      within(:xpath, "//table/tr[4]/td") do
+        page.should have_content("#{@user_4.name}")
+      end
     end
   end
 end
