@@ -134,5 +134,49 @@ describe "As an admin user" do
       #   page.should have_content("#{@user_4.name}")
       # end
     end
+
+    it 'see all packaged orders ready to ship. with a button to ship the order' do
+      visit '/admin'
+
+      within ".packaged-order-info" do
+        expect(page).to have_button('Ship')
+      end
+
+      within ".pending-order-info" do
+        expect(page).to_not have_button('Ship')
+      end
+
+      within ".shipped-order-info" do
+        expect(page).to_not have_button('Ship')
+      end
+
+      within ".cancelled-order-info" do
+        expect(page).to_not have_button('Ship')
+      end
+    end
+
+    it 'click ship button for an order and order status changes to shipped' do
+      visit '/admin'
+
+      within "#order-#{@order_3.id}" do
+        expect(@order_3.status).to eq("packaged")
+        click_button 'Ship'
+        expect(current_path).to eq('/admin')
+      end
+
+      within ".packaged-order-info" do
+        expect(page).to_not have_content(@order_3.id)
+        expect(page).to_not have_content(@order_3.user.name)
+      end
+
+      within ".shipped-order-info" do
+        expect(page).to have_content(@order_3.id)
+        expect(page).to have_content(@order_3.user.name)
+      end
+      expect(@order_3.status).to eq("shipped")
+    end
+
+    it 'user can no loger cancel a shipped order'
+
   end
 end
