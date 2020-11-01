@@ -112,23 +112,26 @@ describe "As an admin user" do
 
     it "Orders are sorted by status: packaged, pending, shipped, cancelled" do
       visit "/admin"
-      require "pry"; binding.pry
-save_and_open_page
-      within(:xpath, "//table/tr[1]/td") do
-        page.should have_content("#{@user_3.name}")
-      end
 
-      within(:xpath, "//table/tr[2]/td") do
-        page.should have_content("#{@user_1.name}")
-      end
-
-      within(:xpath, "//table/tr[3]/td") do
-        page.should have_content("#{@user_2.name}")
-      end
-
-      within(:xpath, "//table/tr[4]/td") do
-        page.should have_content("#{@user_4.name}")
-      end
+      expect(page.text.index('Packaged')).to be < page.text.index('Pending')
+      expect(page.text.index('Pending')).to be < page.text.index('Shipped')
+      expect(page.text.index('Shipped')).to be < page.text.index('Cancelled')
+      expect(page.text.index('Cancelled')).to_not be < page.text.index('Packaged')
+      # within(:xpath, "//table/tr[1]/td") do
+      #   page.should have_content("#{@user_3.name}")
+      # end
+      #
+      # within(:xpath, "//table/tr[2]/td") do
+      #   page.should have_content("#{@user_1.name}")
+      # end
+      #
+      # within(:xpath, "//table/tr[3]/td") do
+      #   page.should have_content("#{@user_2.name}")
+      # end
+      #
+      # within(:xpath, "//table/tr[4]/td") do
+      #   page.should have_content("#{@user_4.name}")
+      # end
     end
   end
 end
