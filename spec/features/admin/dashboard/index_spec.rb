@@ -117,6 +117,7 @@ describe "As an admin user" do
       expect(page.text.index('Pending')).to be < page.text.index('Shipped')
       expect(page.text.index('Shipped')).to be < page.text.index('Cancelled')
       expect(page.text.index('Cancelled')).to_not be < page.text.index('Packaged')
+      expect(page.text.index('Shipped')).to_not be < page.text.index('Pending')
       # within(:xpath, "//table/tr[1]/td") do
       #   page.should have_content("#{@user_3.name}")
       # end
