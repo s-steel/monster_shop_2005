@@ -108,5 +108,15 @@ describe "As a merchant employee" do
       click_link "#{@order_1.id}"
       expect(current_path).to eq("/merchant/orders/#{@order_1.id}")
     end
+
+    it 'see a link to view my own items' do
+      expect(page).to have_link('View Your Items')
+    end
+
+    it 'click the link and I am sent to /merchant/items' do
+      click_link "View Your Items"
+      expect(current_path).to eq("merchant/items")
+    end
+
   end
 end
