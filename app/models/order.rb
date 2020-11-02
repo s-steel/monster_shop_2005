@@ -36,4 +36,12 @@ class Order <ApplicationRecord
       item_order.status = 'unfulfilled'
     end
   end
+
+  def merchant_items(merch_id)
+    items.where(merchant_id: merch_id)
+  end
+
+  def total_sales(merch_id)
+    merchant_items(merch_id).sum("item_orders.quantity * item_orders.price")
+  end
 end

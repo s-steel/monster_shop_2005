@@ -1,0 +1,27 @@
+<h1>Merchant Dashboard</h1>
+
+<section>
+<h2><%= @merchant.name %></h2>
+<h3><%= @merchant.address %><br>
+    <%= @merchant.city %>, <%= @merchant.state %> <%= @merchant.zip %></h3>
+</section>
+
+<section>
+  <table>
+    <tr>
+      <th>Order Id</th>
+      <th>Date Created</th>
+      <th>Total Item Quantity</th>
+      <th>Order Total Value</th>
+    </tr>
+
+    <% @merchant.pending_orders.each do |order| %>
+    <tr id="order-<%= order.id %>">
+      <td><p><%= link_to "#{order.id}", "/merchant/orders/#{order.id}" %> </p></td>
+      <td><p><%= order.date_created %> </p></td>
+      <td><p><%= order.merchant_items(@merchant.id).count %> </p></td>
+      <td><p><%= number_to_currency(order.total_sales(@merchant.id)) %> </p></td>
+    </tr>
+    <% end %>
+  </table>
+</section>

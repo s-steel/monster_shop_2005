@@ -21,8 +21,6 @@ describe "As a visitor" do
                             email: 'mike1@turing.com',
                             password: 'ilikefood')
 
-        # allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(user)
-
         visit '/login'
 
         fill_in 'Email', with: "#{user.email}"
@@ -34,6 +32,8 @@ describe "As a visitor" do
       end
 
       it "If I am a merchant user, I am redirected to my merchant dashboard" do
+        bike_shop = Merchant.create(name: "Mike's Print Shop", address: '123 Paper Rd.', city: 'Denver', state: 'CO', zip: 80_203)
+
         merch_employee = User.create!({
           name: "Kyle",
           address: "333 Starlight Ave.",
@@ -42,10 +42,9 @@ describe "As a visitor" do
           zip: '90210',
           email: "kyle@email.com",
           password: "word",
-          role: 1
+          role: 1,
+          merchant_id: bike_shop.id
           })
-
-        # allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(merch_employee)
 
         visit '/login'
 
@@ -69,8 +68,6 @@ describe "As a visitor" do
           role: 2
           })
 
-        # allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(admin)
-
         visit '/login'
 
         fill_in 'Email', with: "#{admin.email}"
@@ -91,8 +88,6 @@ describe "As a visitor" do
                             zip: '80428',
                             email: 'mike2@turing.com',
                             password: 'ilikefood')
-
-        # allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(user)
 
         visit '/login'
         fill_in 'Email', with: "#{user.email}"
@@ -128,6 +123,9 @@ describe "As a visitor" do
                               password: 'ilikefood',
                               role: 2)
 
+        @print_shop = Merchant.create(name: "Mike's Print Shop", address: '123 Paper Rd.', city: 'Denver', state: 'CO', zip: 80_203)
+
+
         @merchant = User.create!(name: 'Mike Dao',
                                  address: '123 Main St',
                                  city: 'Denver',
@@ -135,7 +133,8 @@ describe "As a visitor" do
                                  zip: '80428',
                                  email: 'mike5@turing.com',
                                  password: 'ilikefood',
-                                 role: 1)
+                                 role: 1,
+                                 merchant_id: @print_shop.id)
       end
 
       it 'as a user' do
@@ -163,7 +162,6 @@ describe "As a visitor" do
 
         expect(page).to have_current_path '/admin'
         expect(page).to have_content('You are already logged in!')
-
       end
     end
   end

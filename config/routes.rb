@@ -47,13 +47,10 @@ Rails.application.routes.draw do
 
   get '/profile/change-password', to: 'users#change_password'
   patch '/profile/change-password', to: 'users#update_password'
-  # Plz refactor inside namespace
-  # namespace :profile do
-namespace :profile do
-  patch '/orders/:id', to: 'orders#update', as: :profile_orders_cancel
-end
-  # end
 
+  namespace :profile do
+    patch '/orders/:id', to: 'orders#update', as: :profile_orders_cancel
+  end
 
   get '/login', to: 'sessions#new'
   post '/login', to: 'sessions#create'
@@ -67,6 +64,7 @@ end
   end
 
   namespace :merchant do
-    get '/', to: 'dashboard#index'
+    get '/', to: 'dashboard#show'
+    get '/orders/:order_id', to: 'orders#show'
   end
 end
