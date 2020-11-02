@@ -12,6 +12,8 @@ describe Merchant, type: :model do
   describe 'relationships' do
     it { should have_many :items }
     it { should have_many :users }
+    it { should have_many(:item_orders).through(:items) }
+    it { should have_many(:orders).through(:item_orders) }
   end
 
   describe 'instance methods' do
@@ -30,6 +32,7 @@ describe Merchant, type: :model do
 
       allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(@user)
     end
+
     it 'no_orders' do
       expect(@meg.no_orders?).to eq(true)
 
@@ -62,6 +65,33 @@ describe Merchant, type: :model do
 
       expect(@meg.distinct_cities).to include('Denver')
       expect(@meg.distinct_cities).to include('Hershey')
+    end
+
+    it 'shows associated_orders' do
+      @mike = Merchant.create(name: "Mike's Print Shop", address: '123 Paper Rd.', city: 'Denver', state: 'CO', zip: 80_203)
+      @paper = @mike.items.create(name: 'Lined Paper', description: 'Great for writing on!', price: 20, image: 'https://cdn.vertex42.com/WordTemplates/images/printable-lined-paper-wide-ruled.png', inventory: 360)
+
+      @chain = @meg.items.create(name: "Chain", description: "It'll never break!", price: 50, image: "https://www.rei.com/media/b61d1379-ec0e-4760-9247-57ef971af0ad?size=784x588", inventory: 55)
+      @pedal = @meg.items.create(name: "Pedal", description: "Step on it", price: 10, image: "https://keyassets.timeincuk.net/inspirewp/live/wp-content/uploads/sites/11/2020/06/meow.jpg", inventory: 374)
+      @reflector = @meg.items.create(name: "Reflector", description: "They'll see you", price: 200, image: "https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcStDVPL-iMrlZHu5mai-EXeyDH-wH2r9nBeFw&usqp=CAU", inventory: 324)
+
+      @order_1 = Order.create!(name: 'order', address: '123 Main St', city: 'Here', state: 'CO', zip: '58421', user_id: @user.id, status: 'pending')
+      @item_order_1 = @order_1.item_orders.create!(item_id: @tire.id, price: @tire.price, quantity: 2)
+      @item_order_2 = @order_1.item_orders.create!(item_id: @paper.id, price: @paper.price, quantity: 3)
+      @item_order_3 = @order_1.item_orders.create!(item_id: @chain.id, price: @chain.price, quantity: 1)
+
+      @order_2 = Order.create!(name: 'second order', address: '754 Main St', city: 'There', state: 'WY', zip: '12421', user_id: @user.id, status: 'pending')
+      @item_order_6 = @order_2.item_orders.create!(item_id: @paper.id, price: @paper.price, quantity: 7)
+
+      @order_3 = Order.create!(name: 'second order', address: '754 Main St', city: 'There', state: 'WY', zip: '12421', user_id: @user.id, status: 'shipped')
+      @item_order_7 = @order_3.item_orders.create!(item_id: @pedal.id, price: @pedal.price, quantity: 4)
+      @item_order_8 = @order_3.item_orders.create!(item_id: @reflector.id, price: @reflector.price, quantity: 7)
+      @item_order_9 = @order_3.item_orders.create!(item_id: @paper.id, price: @paper.price, quantity: 7)
+
+      expect(@meg.associated_orders).to include(@order_1)
+      expect(@meg.associated_orders).to include(@order_3)
+
+      expect(@meg.associated_orders).to_not include(@order_2)
     end
   end
 end
