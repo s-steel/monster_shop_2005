@@ -36,16 +36,24 @@ describe Order, type: :model do
 
       @order_1 = @user.orders.create!(name: 'Meg', address: '123 Stang Ave', city: 'Hershey', state: 'PA', zip: 17_033)
 
-      @order_1.item_orders.create!(item: @tire, price: @tire.price, quantity: 2)
-      @order_1.item_orders.create!(item: @pull_toy, price: @pull_toy.price, quantity: 3)
+      @io_1 = @order_1.item_orders.create!(item: @tire, price: @tire.price, quantity: 2)
+      @io_2 = @order_1.item_orders.create!(item: @pull_toy, price: @pull_toy.price, quantity: 3)
     end
 
     it 'grandtotal' do
       expect(@order_1.grandtotal).to eq(230)
     end
 
-    it "totals all items in order" do
-      expect(@order_1.total_item_count).to eq(5)
+    it "#item_count" do
+      expect(@order_1.item_count).to eq(5)
+    end
+
+    it "#date_created" do
+      expect(@order_1.date_created).to eq(Date.today.strftime('%m/%d/%Y'))
+    end
+
+    it "#date_updated" do
+      expect(@order_1.date_updated).to eq(Date.today.strftime('%m/%d/%Y'))
     end
 
     it "can be cancelled" do
@@ -55,6 +63,20 @@ describe Order, type: :model do
 
     it "items in order can be unfulfilled" do
       @order_1.unfulfill_items
+      expect(@order_1.item_orders.pluck(:status)).to all(eq('unfulfilled'))
+    end
+
+    it "returns item_orders for a specific merchant" do
+      expect(@order_1.merchant_items(@meg.id)).to eq([@tire])
+    end
+
+    it "returns total sales for a merchant's order" do
+      expect(@order_1.total_sales(@meg.id)).to eq(200.0)
+    end
+
+    it "#merchant_item_count" do
+      expect(@order_1.merchant_item_count(@meg.id)).to eq(2)
+      expect(@order_1.merchant_item_count(@brian.id)).to eq(3)
     end
   end
 end

@@ -11,8 +11,8 @@
     </tr>
     <tr>
       <td><p><%= @order.id %> </p></td>
-      <td><p><%= @order.created_at.strftime('%m/%d/%Y') %> </p></td>
-      <td><p><%= @order.updated_at.strftime('%m/%d/%Y') %> </p></td>
+      <td><p><%= @order.date_created %> </p></td>
+      <td><p><%= @order.date_updated %> </p></td>
       <td><p><%= @order.status %> </p></td>
 
     </tr>
@@ -44,7 +44,7 @@
 </section>
 
 <h1 align = "center">Order Info</h1>
-<h3 align = "center">Item Count: <%= @order.total_item_count %></h3>
+<h3 align = "center">Item Count: <%= @order.item_count %></h3>
 <center>
   <table>
     <tr>

@@ -17,6 +17,7 @@ describe User, type: :model do
 
   describe 'relationships' do
     it { should have_many :orders }
+    it { should belong_to(:merchant).optional }
   end
 
   describe "roles" do
@@ -50,7 +51,7 @@ describe User, type: :model do
       expect(user.merchant_employee?).to be_truthy
     end
 
-    xit "can be created as an admin" do
+    it "can be created as an admin" do
       user = User.create!({
         name: "Bruce Wayne",
         address: "456 Batcave Alley",
