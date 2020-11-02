@@ -110,12 +110,16 @@ describe "As a merchant employee" do
     end
 
     it 'see a link to view my own items' do
+      visit "/merchant"
+
       expect(page).to have_link('View Your Items')
     end
 
     it 'click the link and I am sent to /merchant/items' do
+      visit "/merchant"
+
       click_link "View Your Items"
-      expect(current_path).to eq("merchant/items")
+      expect(current_path).to eq("/merchant/items")
     end
 
   end
