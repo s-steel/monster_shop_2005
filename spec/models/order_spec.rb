@@ -61,5 +61,9 @@ describe Order, type: :model do
     it "returns item_orders for a specific merchant" do
       expect(@order_1.merchant_items(@meg.id)).to eq([@tire])
     end
+
+    it "returns total sales for a merchant's order" do
+      expect(@order_1.total_sales(@meg.id)).to eq(200.0)
+    end
   end
 end
