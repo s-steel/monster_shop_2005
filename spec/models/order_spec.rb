@@ -36,8 +36,8 @@ describe Order, type: :model do
 
       @order_1 = @user.orders.create!(name: 'Meg', address: '123 Stang Ave', city: 'Hershey', state: 'PA', zip: 17_033)
 
-      @order_1.item_orders.create!(item: @tire, price: @tire.price, quantity: 2)
-      @order_1.item_orders.create!(item: @pull_toy, price: @pull_toy.price, quantity: 3)
+      @io_1 = @order_1.item_orders.create!(item: @tire, price: @tire.price, quantity: 2)
+      @io_2 = @order_1.item_orders.create!(item: @pull_toy, price: @pull_toy.price, quantity: 3)
     end
 
     it 'grandtotal' do
@@ -56,6 +56,10 @@ describe Order, type: :model do
     it "items in order can be unfulfilled" do
       @order_1.unfulfill_items
       expect(@order_1.item_orders.pluck(:status)).to all(eq('unfulfilled'))
+    end
+
+    it "returns item_orders for a specific merchant" do
+      expect(@order_1.merchant_items(@meg.id)).to eq([@tire])
     end
   end
 end
