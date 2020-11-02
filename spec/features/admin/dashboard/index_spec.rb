@@ -163,7 +163,7 @@ describe "As an admin user" do
       # binding.pry
     end
 
-    it 'user can no longer cancel a shipped order' do
+    xit 'user can no longer cancel a shipped order' do
       order_3 = Order.create!(name: 'Lanceman', address: '333 Bikeshop Ln.', city: 'Los Angeles', state: 'CA', zip: '90210', user_id: @user_3.id, status: 'shipped')
 
       visit profile_orders_show_path(order_3.id)
