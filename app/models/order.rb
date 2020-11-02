@@ -23,10 +23,6 @@ class Order <ApplicationRecord
     updated_at.strftime('%m/%d/%Y')
   end
 
-  def total_item_count
-    self.item_orders.sum(:quantity)
-  end
-
   def cancel_order
     self.status = 3
   end
@@ -43,5 +39,9 @@ class Order <ApplicationRecord
 
   def total_sales(merch_id)
     merchant_items(merch_id).sum("item_orders.quantity * item_orders.price")
+  end
+
+  def merchant_item_count(merch_id)
+    item_orders.joins(:item).where(items: {merchant_id: merch_id}).sum(:quantity)
   end
 end

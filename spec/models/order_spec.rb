@@ -44,8 +44,16 @@ describe Order, type: :model do
       expect(@order_1.grandtotal).to eq(230)
     end
 
-    it "totals all items in order" do
-      expect(@order_1.total_item_count).to eq(5)
+    it "#item_count" do
+      expect(@order_1.item_count).to eq(5)
+    end
+
+    it "#date_created" do
+      expect(@order_1.date_created).to eq(Date.today.strftime('%m/%d/%Y'))
+    end
+
+    it "#date_updated" do
+      expect(@order_1.date_updated).to eq(Date.today.strftime('%m/%d/%Y'))
     end
 
     it "can be cancelled" do
@@ -64,6 +72,11 @@ describe Order, type: :model do
 
     it "returns total sales for a merchant's order" do
       expect(@order_1.total_sales(@meg.id)).to eq(200.0)
+    end
+
+    it "#merchant_item_count" do
+      expect(@order_1.merchant_item_count(@meg.id)).to eq(2)
+      expect(@order_1.merchant_item_count(@brian.id)).to eq(3)
     end
   end
 end
