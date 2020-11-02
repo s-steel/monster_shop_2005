@@ -30,4 +30,8 @@ class Merchant <ApplicationRecord
   def associated_orders
     orders.distinct
   end
+
+  def pending_orders
+    associated_orders.where(status: 'pending')
+  end
 end
