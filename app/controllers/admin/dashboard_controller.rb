@@ -2,6 +2,14 @@ class Admin::DashboardController < ApplicationController
   before_action :require_admin
 
   def index
+    @orders = Order.all
+  end
+
+  def ship
+    order = Order.find(params[:id])
+    order.update(status: 'shipped')
+    # binding.pry
+    redirect_to '/admin'
   end
 
 private

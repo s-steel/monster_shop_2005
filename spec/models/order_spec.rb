@@ -55,7 +55,6 @@ describe Order, type: :model do
 
     it "items in order can be unfulfilled" do
       @order_1.unfulfill_items
-      require "pry"; binding.pry
     end
   end
 end
