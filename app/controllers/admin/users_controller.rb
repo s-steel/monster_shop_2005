@@ -5,7 +5,7 @@ class Admin::UsersController < ApplicationController
   end
 
   def show
-  end 
+  end
 
 private
   def require_admin

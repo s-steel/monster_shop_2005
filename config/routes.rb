@@ -47,6 +47,7 @@ Rails.application.routes.draw do
 
   get '/profile/change-password', to: 'users#change_password'
   patch '/profile/change-password', to: 'users#update_password'
+  # Plz refactor inside namespace
 
   namespace :profile do
     patch '/orders/:id', to: 'orders#update', as: :profile_orders_cancel
