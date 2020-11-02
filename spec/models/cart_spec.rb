@@ -47,5 +47,16 @@ RSpec.describe Cart do
       expect(@cart.subtotal(@ogre)).to eq(20)
       expect(@cart.subtotal(@giant)).to eq(100)
     end
+
+    it '.[](key)' do
+      expect(@cart.[](@ogre.id.to_s)).to eq(1)
+      expect(@cart.[](@giant.id.to_s)).to eq(2)
+    end
+
+    it '.[]=(key, value)' do
+      expect(@cart.[]=(@giant.id.to_s, 5)).to eq(5)
+      expect(@cart.[]=(@ogre.id.to_s, 10)).to eq(10)
+      expect(@cart.[]=(@hippo.id.to_s, 2)).to eq(2)
+    end
   end
 end
