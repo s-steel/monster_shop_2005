@@ -15,7 +15,7 @@ class Merchant::ItemsController < ApplicationController
 
   def deactivate
     item = Item.find(params[:id])
-    item.update(active?: false)
+    item.toggle_active
     item.save
     flash[:notice] = "#{item.name} is no longer for sale"
 
@@ -24,7 +24,7 @@ class Merchant::ItemsController < ApplicationController
 
   def activate
     item = Item.find(params[:id])
-    item.update(active?: true)
+    item.toggle_active
     item.save
     flash[:notice] = "#{item.name} is now available for sale"
 

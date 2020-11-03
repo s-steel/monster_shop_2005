@@ -119,13 +119,30 @@ describe Merchant, type: :model do
     end
 
     it 'toggle_active' do
-      @meg = Merchant.create(name: "Meg's Bike Shop", address: '123 Bike Rd.', city: 'Denver', state: 'CO', zip: 80_203, active?: true)
-      @mike = Merchant.create(name: "Mike's Print Shop", address: '123 Paper Rd.', city: 'Denver', state: 'CO', zip: 80_203, active?: false)
+      meg = Merchant.create(name: "Meg's Bike Shop", address: '123 Bike Rd.', city: 'Denver', state: 'CO', zip: 80_203, active?: true)
+      mike = Merchant.create(name: "Mike's Print Shop", address: '123 Paper Rd.', city: 'Denver', state: 'CO', zip: 80_203, active?: false)
 
+      meg.toggle_active
+      mike.toggle_active
+      expect(meg.active?).to eq(false)
+      expect(mike.active?).to eq(true)
+    end
+
+    it 'all_items_inactive' do
+      expect(@tire.active?).to eq(true)
       @meg.toggle_active
-      @mike.toggle_active
-      expect(@meg.active?).to eq(false)
-      expect(@mike.active?).to eq(true)
+      @meg.all_items_inactive
+      expect(@meg.items.first.active?).to eq(false)
+    end
+
+    it 'all_items_active' do
+      meg = Merchant.create(name: "Meg's Bike Shop", address: '123 Bike Rd.', city: 'Denver', state: 'CO', zip: 80_203, active?: false)
+      tire = meg.items.create(name: 'Gatorskins', description: "They'll never pop!", price: 100, image: 'https://www.rei.com/media/4e1f5b05-27ef-4267-bb9a-14e35935f218?size=784x588', inventory: 12, active?: false)
+
+      expect(tire.active?).to eq(false)
+      meg.toggle_active
+      meg.all_items_active
+      expect(meg.items.first.active?).to eq(true)
     end
   end
 end
