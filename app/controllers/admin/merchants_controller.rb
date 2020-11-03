@@ -22,7 +22,7 @@ class Admin::MerchantsController < ApplicationController
   def enable
     merchant = Merchant.find(params[:id])
     merchant.toggle_active
-    # merchant.items.update_all(active?: false)
+    merchant.items.update_all(active?: true)
     merchant.save
     flash[:notice] = "#{merchant.name} is now enabled"
 

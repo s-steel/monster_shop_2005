@@ -106,5 +106,29 @@ describe 'admin/merchant index page', type: :feature do
         expect(page).to_not have_button('Enable')
       end
     end
+
+    it 'visit merchant index page and click enable for merchant, all their items should be activated' do
+      allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(@user)
+      visit '/items'
+
+      expect(page).to_not have_content(@pull_toy.name)
+      expect(page).to_not have_content(@dog_bone.name)
+
+      allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(@admin)
+      visit '/admin/merchants'
+
+      expect(@pull_toy.active?).to eq(false)
+      expect(@dog_bone.active?).to eq(false)
+
+      within ".merchant-#{@dog_shop.id}" do
+        click_button('Enable')
+      end
+
+      allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(@user)
+      visit '/items'
+
+      expect(page).to have_content(@pull_toy.name)
+      expect(page).to have_content(@dog_bone.name)
+    end
   end
 end
