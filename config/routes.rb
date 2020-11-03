@@ -65,6 +65,7 @@ Rails.application.routes.draw do
     get '/users', to: 'users#index'
     get '/users/:user_id', to: 'users#show'
     get '/merchants/:id', to: 'merchants#show'
+    get '/merchants', to: 'merchants#index'
   end
 
   namespace :merchant do
