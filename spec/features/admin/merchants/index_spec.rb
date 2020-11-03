@@ -91,8 +91,20 @@ describe 'admin/merchant index page', type: :feature do
       end
     end
 
-    it 'click enable, returned to admin merchant index page and see account is now enabled, and see flash message saying so'
+    it 'click enable, returned to admin merchant index page and see account is now enabled, and see flash message saying so' do
+      visit '/admin/merchants'
 
+      within ".merchant-#{@dog_shop.id}" do
+        click_button('Enable')
+      end
 
+      expect(current_path).to eq("/admin/merchants")
+      expect(page).to have_content("#{@dog_shop.name} is now enabled")
+
+      within ".merchant-#{@dog_shop.id}" do
+        expect(page).to have_button('Disable')
+        expect(page).to_not have_button('Enable')
+      end
+    end
   end
 end
