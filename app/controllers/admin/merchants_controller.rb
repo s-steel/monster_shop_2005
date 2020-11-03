@@ -12,11 +12,10 @@ class Admin::MerchantsController < ApplicationController
   def update
     merchant = Merchant.find(params[:id])
     merchant.toggle_active
-    if merchant.active? == false
-      flash[:notice] = "#{merchant.name} is now disabled"
-    else
-      flash[:notice] = "#{merchant.name} is now active"
-    end 
+    merchant.save
+    flash[:notice] = "#{merchant.name} is now disabled"
+
+    redirect_to "/admin/merchants"
   end
 
 private

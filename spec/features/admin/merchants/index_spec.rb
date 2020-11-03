@@ -39,7 +39,7 @@ describe 'admin/merchant index page', type: :feature do
       within ".merchant-#{@bike_shop.id}" do
         click_button('Disable')
       end
-      
+
       expect(current_path).to eq("/admin/merchants")
       expect(page).to have_content("#{@bike_shop.name} is now disabled")
 

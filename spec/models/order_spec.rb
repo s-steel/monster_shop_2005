@@ -49,11 +49,11 @@ describe Order, type: :model do
     end
 
     it "#date_created" do
-      expect(@order_1.date_created).to eq(Date.today.strftime('%m/%d/%Y'))
+      expect(@order_1.date_created).to eq(@order_1.created_at.strftime('%m/%d/%Y'))
     end
 
     it "#date_updated" do
-      expect(@order_1.date_updated).to eq(Date.today.strftime('%m/%d/%Y'))
+      expect(@order_1.date_updated).to eq(@order_1.updated_at.strftime('%m/%d/%Y'))
     end
 
     it "can be cancelled" do
