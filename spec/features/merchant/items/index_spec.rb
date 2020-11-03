@@ -25,14 +25,14 @@ describe 'merchant index page', type: :feature do
     end
 
     it 'see all my items with info: name, descrition, price, image, active? status, inventory' do
-      expect(page).to have_content('All Items')
+      visit '/merchant/items'
 
       within "#item-#{@tire.id}" do
         expect(page).to have_content(@tire.name)
         expect(page).to have_content(@tire.description)
         expect(page).to have_content(@tire.price)
         expect(page).to have_css("img[src*='#{@tire.image}']")
-        expect(page).to have_content(@tire.status)
+        expect(page).to have_content("Active")
         expect(page).to have_content(@tire.inventory)
       end
       within "#item-#{@chain.id}" do
@@ -40,7 +40,7 @@ describe 'merchant index page', type: :feature do
         expect(page).to have_content(@chain.description)
         expect(page).to have_content(@chain.price)
         expect(page).to have_css("img[src*='#{@chain.image}']")
-        expect(page).to have_content(@chain.status)
+        expect(page).to have_content("Active")
         expect(page).to have_content(@chain.inventory)
       end
       within "#item-#{@pedal.id}" do
@@ -48,7 +48,7 @@ describe 'merchant index page', type: :feature do
         expect(page).to have_content(@pedal.description)
         expect(page).to have_content(@pedal.price)
         expect(page).to have_css("img[src*='#{@pedal.image}']")
-        expect(page).to have_content(@pedal.status)
+        expect(page).to have_content("Active")
         expect(page).to have_content(@pedal.inventory)
       end
       within "#item-#{@reflector.id}" do
@@ -56,7 +56,7 @@ describe 'merchant index page', type: :feature do
         expect(page).to have_content(@reflector.description)
         expect(page).to have_content(@reflector.price)
         expect(page).to have_css("img[src*='#{@reflector.image}']")
-        expect(page).to have_content(@reflector.status)
+        expect(page).to have_content("Active")
         expect(page).to have_content(@reflector.inventory)
       end
     end
@@ -80,8 +80,44 @@ describe 'merchant index page', type: :feature do
                            role: 0)
 
       order = user.orders.create!(name: 'Meg', address: '123 Stang Ave', city: 'Hershey', state: 'PA', zip: 17_033)
-
       order.add_item(@pedal)
+      order.item_orders[0].fulfill
+      order.update(status: 2)
+
+      within "#item-#{@tire}" do
+        expect(page).to have_link("Delete")
+      end
+
+      within "#item-#{@pedal.id}" do
+        expect(page).to_not have_link("Delete")
+      end
+    end
+
+    it "When I click the delete link for an item I am returned to the items page, no longer see that
+        item, and see a flash message indicating this item is now deleted" do
+      visit "merchant/items"
+
+      within "#item-#{@tire.id}" do
+        click_link("Delete")
+
+        expect(current_path).to eq("/merchant/items")
+        expect(page).to_not have_content(@tire.name)
+        expect(page).to_not have_content(@tire.description)
+        expect(page).to_not have_content(@tire.price)
+        expect(page).to_not have_css("img[src*='#{@tire.image}']")
+        expect(page).to_not have_content(@tire.status)
+        expect(page).to_not have_content(@tire.inventory)
+
+        expect(page).to have_content("Item successfully deleted.")
+      end
+    end
+
+    it "When I click on the link to add a new item, I am taken to the new item form page" do
+      visit "merchant/items"
+
+      expect(page).to have_link("Add New Item")
+      click_link("Add New Item")
+      expect(current_path).to eq("/merchant/items/new")
     end
   end
 end
