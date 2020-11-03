@@ -56,8 +56,14 @@ describe 'All merchants fulfill items on an order' do
   describe 'When all items in an order have been "fulfilled" by their merchants' do
     it 'The order status changes from "pending" to "packaged"' do
       visit profile_orders_show_path(@order4.id)
-      save_and_open_page
+
       expect(page).to have_content('pending')
+
+      @order4.item_orders.each(&:fulfill)
+
+      visit profile_orders_show_path(@order4.id)
+
+      expect(page).to have_content('packaged')
     end
   end
 end
