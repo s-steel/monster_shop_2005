@@ -19,6 +19,16 @@ class Admin::MerchantsController < ApplicationController
     redirect_to "/admin/merchants"
   end
 
+  def enable
+    merchant = Merchant.find(params[:id])
+    merchant.toggle_active
+    # merchant.items.update_all(active?: false)
+    merchant.save
+    flash[:notice] = "#{merchant.name} is now enabled"
+
+    redirect_to "/admin/merchants"
+  end
+
 private
   def require_admin
     render file: "/public/404" unless current_admin?
