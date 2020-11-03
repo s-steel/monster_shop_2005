@@ -34,4 +34,8 @@ class Merchant <ApplicationRecord
   def pending_orders
     associated_orders.where(status: 'pending')
   end
+
+  def toggle_active
+    toggle(:active?)
+  end
 end

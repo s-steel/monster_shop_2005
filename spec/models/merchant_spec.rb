@@ -117,5 +117,15 @@ describe Merchant, type: :model do
 
       expect(@meg.pending_orders).to eq([@order_1])
     end
+
+    it 'toggle_active' do
+      @meg = Merchant.create(name: "Meg's Bike Shop", address: '123 Bike Rd.', city: 'Denver', state: 'CO', zip: 80_203, active?: true)
+      @mike = Merchant.create(name: "Mike's Print Shop", address: '123 Paper Rd.', city: 'Denver', state: 'CO', zip: 80_203, active?: false)
+
+      @meg.toggle_active
+      @mike.toggle_active
+      expect(@meg.active?).to eq(false)
+      expect(@mike.active?).to eq(true)
+    end
   end
 end
