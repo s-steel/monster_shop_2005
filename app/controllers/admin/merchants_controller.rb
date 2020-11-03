@@ -9,9 +9,10 @@ class Admin::MerchantsController < ApplicationController
     @merchant = Merchant.find(params[:id])
   end
 
-  def update
+  def disable
     merchant = Merchant.find(params[:id])
     merchant.toggle_active
+    merchant.items.update_all(active?: false)
     merchant.save
     flash[:notice] = "#{merchant.name} is now disabled"
 
