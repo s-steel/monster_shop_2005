@@ -1,11 +1,15 @@
-class Order <ApplicationRecord
+class Order < ApplicationRecord
   validates_presence_of :name, :address, :city, :state, :zip
 
   has_many :item_orders
   has_many :items, through: :item_orders
   belongs_to :user
 
-  enum status: %w(pending packaged shipped cancelled)
+  enum status: %w[pending packaged shipped cancelled]
+
+  def add_item(item, amount = 1)
+    item_orders.create(item: item, price: item.price, quantity: amount)
+  end
 
   def grandtotal
     item_orders.sum('price * quantity')
@@ -24,7 +28,7 @@ class Order <ApplicationRecord
   end
 
   def total_item_count
-    self.item_orders.sum(:quantity)
+    item_orders.sum(:quantity)
   end
 
   def cancel_order
@@ -32,7 +36,7 @@ class Order <ApplicationRecord
   end
 
   def unfulfill_items
-    self.item_orders.each do |item_order|
+    item_orders.each do |item_order|
       item_order.status = 'unfulfilled'
     end
   end

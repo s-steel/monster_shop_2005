@@ -1,1 +1,18 @@
 <h1>Merchant Dashboard</h1>
+
+<h3>Stats:</h3>
+<table>
+  <thead>Top Items Sold:</thead>
+  <tr>
+    <th>Item</th>
+    <th>Amount Sold</th>
+  </tr>
+  <% if @merchant %>
+    <% @merchant.top_item_amounts.each do |item, amount| %>
+      <tr>
+        <th><%= item %></th>
+        <th><%= amount %></th>
+      </tr>
+    <% end %>
+  <% end %>
+</table>

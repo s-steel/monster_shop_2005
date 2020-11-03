@@ -16,7 +16,10 @@ describe User, type: :model do
   end
 
   describe 'relationships' do
-    it { should have_many :orders }
+    it do
+      should have_many :orders
+      should belong_to(:merchant).optional(true)
+    end
   end
 
   describe "roles" do
