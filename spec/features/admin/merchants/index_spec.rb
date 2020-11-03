@@ -3,8 +3,8 @@ require 'rails_helper'
 describe 'admin/merchant index page', type: :feature do
   describe 'As an admin' do
     before :each do
-      @bike_shop = Merchant.create(name: "Brian's Bike Shop", address: '123 Bike Rd.', city: 'Richmond', state: 'VA', zip: 80203)
-      @dog_shop = Merchant.create(name: "Meg's Dog Shop", address: '123 Dog Rd.', city: 'Hershey', state: 'PA', zip: 80203)
+      @bike_shop = Merchant.create(name: "Brian's Bike Shop", address: '123 Bike Rd.', city: 'Richmond', state: 'VA', zip: 80203, active?: true)
+      @dog_shop = Merchant.create(name: "Meg's Dog Shop", address: '123 Dog Rd.', city: 'Hershey', state: 'PA', zip: 80203, active?: false)
 
       @admin = User.create!({
         name: "Bruce Wayne",
@@ -24,17 +24,28 @@ describe 'admin/merchant index page', type: :feature do
     it 'visit merchant index page and see diable button mext to merchants' do
       visit '/admin/merchants'
 
-      within "#merchant-#{@bike_shop.id}" do
+      within ".merchant-#{@bike_shop.id}" do
         expect(page).to have_button('Disable')
       end
 
-      within "#merchant-#{@dog_shop.id}" do
+      within ".merchant-#{@dog_shop.id}" do
         expect(page).to_not have_button('Disable')
       end
     end
 
-    it 'click diable and returned to admin merchants index page where I see merchant diabled, and see flash message'
+    it 'click diable and returned to admin merchants index page where I see merchant diabled, and see flash message' do
+      visit '/admin/merchants'
 
+      within ".merchant-#{@bike_shop.id}" do
+        click_button('Disable')
+      end
+      
+      expect(current_path).to eq("/admin/merchants")
+      expect(page).to have_content("#{@bike_shop.name} is now disabled")
 
+      within ".merchant-#{@bike_shop.id}" do
+        expect(page).to_not have_button('Disable')
+      end
+    end
   end
 end
