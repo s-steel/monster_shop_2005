@@ -15,7 +15,11 @@ class Merchant::ItemsController < ApplicationController
 
   def deactivate
     item = Item.find(params[:id])
+    item.update(active?: false)
+    item.save
+    flash[:notice] = "#{item.name} is no longer for sale"
 
+    redirect_to "/merchant/items"
   end
 
 private
