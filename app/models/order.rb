@@ -7,6 +7,10 @@ class Order <ApplicationRecord
 
   enum status: %w(pending packaged shipped cancelled)
 
+  def add_item(item, amount = 1)
+    item_orders.create(item: item, price: item.price, quantity: amount)
+  end
+
   def grandtotal
     item_orders.sum('price * quantity')
   end
