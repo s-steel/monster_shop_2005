@@ -1,0 +1,20 @@
+<h1>Add a New Item</h1>
+
+<%= form_with model: @item, local: true do |f| %>
+  <%= f.label :name %>
+  <%= f.text_field :name %><br>
+
+  <%= f.label :description %>
+  <%= f.text_area :description %><br>
+
+  <%= f.label "Image (optional)" %>
+  <%= f.text_field :image %><br>
+
+  <%= f.label :price %>
+  <%= f.text_field :price %><br>
+
+  <%= f.label :inventory %>
+  <%= f.text_field :inventory %><br>
+
+  <%= f.submit %>
+<% end %>
