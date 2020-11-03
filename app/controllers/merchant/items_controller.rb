@@ -8,7 +8,8 @@ class Merchant::ItemsController < ApplicationController
 
   def new
     user = current_user
-    @merchant = user.merchant
+    merchant = user.merchant
+    @item = merchant.items.new
   end
 
   def destroy
