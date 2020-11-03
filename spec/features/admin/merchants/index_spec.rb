@@ -3,7 +3,7 @@ require 'rails_helper'
 describe 'admin/merchant index page', type: :feature do
   describe 'As an admin' do
     before :each do
-      @bike_shop = Merchant.create(name: "Brian's Bike Shop", address: '123 Bike Rd.', city: 'Richmond', state: 'VA', zip: 80203, active?: true)
+      @bike_shop = Merchant.create(name: "Brian's Bike Shop", address: '123 Bike Rd.', city: 'Richmond', state: 'VA', zip: 80203)
       @dog_shop = Merchant.create(name: "Meg's Dog Shop", address: '123 Dog Rd.', city: 'Hershey', state: 'PA', zip: 80203, active?: false)
 
       @admin = User.create!({
@@ -76,5 +76,23 @@ describe 'admin/merchant index page', type: :feature do
       expect(page).to_not have_content(@tire.name)
       expect(page).to_not have_content(@pen.name)
     end
+
+    it 'see enable button next to any merchant who are disabled' do
+      visit '/admin/merchants'
+
+      within ".merchant-#{@bike_shop.id}" do
+        expect(page).to have_button('Disable')
+        expect(page).to_not have_button('Enable')
+      end
+
+      within ".merchant-#{@dog_shop.id}" do
+        expect(page).to_not have_button('Disable')
+        expect(page).to have_button('Enable')
+      end
+    end
+
+    it 'click enable, returned to admin merchant index page and see account is now enabled, and see flash message saying so'
+
+
   end
 end
