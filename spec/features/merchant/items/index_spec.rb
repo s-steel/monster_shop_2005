@@ -62,13 +62,40 @@ describe 'merchant index page', type: :feature do
     end
 
     it 'see a link of button to deactivate item if it is active' do
+      visit '/merchant/items'
+
+      within "#item-#{@tire.id}" do
+        expect(page).to have_button("Deactivate")
+      end
+      within "#item-#{@chain.id}" do
+        expect(page).to have_button("Deactivate")
+      end
+      within "#item-#{@pedal.id}" do
+        expect(page).to have_button("Deactivate")
+      end
+      within "#item-#{@reflector.id}" do
+        expect(page).to have_button("Deactivate")
+      end
     end
 
     it 'click deactivate button, returned to items index page, see flash message and item is now inactive' do
+      visit '/merchant/items'
+
+      within "#item-#{@tire.id}" do
+        click_button('Deactivate')
+      end
+
+      expect(current_path).to eq('/merchant/items')
+      expect(page).to have_content("#{@tire.name} is no longer for sale")
+
+      within "#item-#{@tire.id}" do
+        expect(page).to_not have_button("Deactivate")
+        expect(page).to have_button("Activate")
+      end
     end
 
     it 'I see a button or link to delete the item next to each item that has never been ordered' do
-      visit "merchant/items"
+      visit "/merchant/items"
 
       user = User.create!(name: 'Meg',
                            address: '123 Stang Ave',
@@ -80,11 +107,13 @@ describe 'merchant index page', type: :feature do
                            role: 0)
 
       order = user.orders.create!(name: 'Meg', address: '123 Stang Ave', city: 'Hershey', state: 'PA', zip: 17_033)
-      order.add_item(@pedal)
-      order.item_orders[0].fulfill
+      pedal_order = order.add_item(@pedal)
+      pedal_order.fulfill
       order.update(status: 2)
 
-      within "#item-#{@tire}" do
+      visit "/merchant/items"
+      
+      within "#item-#{@tire.id}" do
         expect(page).to have_link("Delete")
       end
 
@@ -112,7 +141,7 @@ describe 'merchant index page', type: :feature do
       end
     end
 
-    it "When I click on the link to add a new item, I am taken to the new item form page" do
+    xit "When I click on the link to add a new item, I am taken to the new item form page" do
       visit "merchant/items"
 
       expect(page).to have_link("Add New Item")
