@@ -74,5 +74,6 @@ Rails.application.routes.draw do
     get '/', to: 'dashboard#show'
     get '/orders/:order_id', to: 'orders#show'
     get '/items', to: 'items#index'
+    resources :items, only: [:index]
   end
 end
