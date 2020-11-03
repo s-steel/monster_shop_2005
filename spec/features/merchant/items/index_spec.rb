@@ -61,7 +61,7 @@ describe 'merchant index page', type: :feature do
       end
     end
 
-    it 'see a link of button to deactivate item if it is active' do
+    it 'see a button to deactivate item if it is active' do
       visit '/merchant/items'
 
       within "#item-#{@tire.id}" do
@@ -94,6 +94,54 @@ describe 'merchant index page', type: :feature do
       end
     end
 
+    it 'see a button to activate item if it is inactive' do
+      visit '/merchant/items'
+
+      within "#item-#{@tire.id}" do
+        click_button('Deactivate')
+      end
+      within "#item-#{@chain.id}" do
+        click_button('Deactivate')
+      end
+
+      within "#item-#{@tire.id}" do
+        expect(page).to have_content('Inactive')
+        expect(page).to have_button("Activate")
+      end
+      within "#item-#{@chain.id}" do
+        expect(page).to have_content('Inactive')
+        expect(page).to have_button("Activate")
+      end
+      within "#item-#{@pedal.id}" do
+        expect(page).to have_content('Active')
+        expect(page).to_not have_button("Activate")
+      end
+      within "#item-#{@reflector.id}" do
+        expect(page).to have_content('Active')
+        expect(page).to_not have_button("Activate")
+      end
+    end
+
+    it 'click activate button, returned to items index page, see flash message and item is now active' do
+      visit '/merchant/items'
+
+      within "#item-#{@tire.id}" do
+        click_button('Deactivate')
+      end
+
+      within "#item-#{@tire.id}" do
+        click_button('Activate')
+      end
+
+      expect(current_path).to eq('/merchant/items')
+      expect(page).to have_content("#{@tire.name} is now available for sale")
+
+      within "#item-#{@tire.id}" do
+        expect(page).to have_content('Active')
+        expect(page).to_not have_button("Activate")
+      end
+    end
+
     it 'I see a button or link to delete the item next to each item that has never been ordered' do
       visit "/merchant/items"
 
@@ -112,7 +160,7 @@ describe 'merchant index page', type: :feature do
       order.update(status: 2)
 
       visit "/merchant/items"
-      
+
       within "#item-#{@tire.id}" do
         expect(page).to have_link("Delete")
       end
@@ -122,7 +170,7 @@ describe 'merchant index page', type: :feature do
       end
     end
 
-    it "When I click the delete link for an item I am returned to the items page, no longer see that
+    xit "When I click the delete link for an item I am returned to the items page, no longer see that
         item, and see a flash message indicating this item is now deleted" do
       visit "merchant/items"
 
