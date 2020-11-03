@@ -29,5 +29,19 @@ describe "As a merchant employee" do
       expect(page).to have_field('item[inventory]')
       expect(page).to have_button('Create Item')
     end
+
+    it "Name field cannot be blank" do
+      visit "/merchant/items/new"
+
+      fill_in 'item[name]', with: ""
+      fill_in 'item[description]', with: "Safety First!"
+      fill_in 'item[image]', with: "https://i.shgcdn.com/944e4e88-f81a-4975-b2a2-c9beb2d3bcf1/-/format/auto/-/preview/3000x3000/-/quality/lighter/"
+      fill_in 'item[price]', with: "25"
+      fill_in 'item[inventory]', with: "10"
+      click_button('Create Item')
+
+      expect(page).to have_content("Name cannot be blank.")
+      expect(current_path).to eq("/merchant/items/new")
+    end
   end
 end
