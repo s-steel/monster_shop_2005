@@ -72,25 +72,25 @@ describe 'Order show page' do
     it "When I click the cancel order button, each row in the 'order items' table status is unfulfilled,
         the order is cancelled, items are returned to their merchants, I'm returned to my profile
         page and see flash saying order is cancelled and this order's status is cancelled" do
-        visit profile_orders_show_path(@order_1.id)
+      visit profile_orders_show_path(@order_1.id)
 
-        click_link("Cancel Order")
+      click_link("Cancel Order")
 
-        expect(current_path).to eq("/profile")
-        expect(page).to have_content("Your order has been cancelled.")
+      expect(current_path).to eq("/profile")
+      expect(page).to have_content("Your order has been cancelled.")
 
-        visit profile_orders_show_path(@order_1.id)
-        within ".order-info" do
-          expect(page).to have_content('cancelled')
-        end
+      visit profile_orders_show_path(@order_1.id)
+      within ".order-info" do
+        expect(page).to have_content('cancelled')
+      end
 
-        within "#item-#{@item_order_1.item_id}" do
-          expect(page).to have_content('unfulfilled')
-        end
+      within "#item-#{@item_order_1.item_id}" do
+        expect(page).to have_content('unfulfilled')
+      end
 
-        within "#item-#{@item_order_2.item_id}" do
-          expect(page).to have_content('unfulfilled')
-        end
+      within "#item-#{@item_order_2.item_id}" do
+        expect(page).to have_content('unfulfilled')
+      end
     end
   end
 end
