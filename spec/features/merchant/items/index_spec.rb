@@ -112,7 +112,7 @@ describe 'merchant index page', type: :feature do
       order.update(status: 2)
 
       visit "/merchant/items"
-      
+
       within "#item-#{@tire.id}" do
         expect(page).to have_link("Delete")
       end
@@ -128,20 +128,19 @@ describe 'merchant index page', type: :feature do
 
       within "#item-#{@tire.id}" do
         click_link("Delete")
-
-        expect(current_path).to eq("/merchant/items")
-        expect(page).to_not have_content(@tire.name)
-        expect(page).to_not have_content(@tire.description)
-        expect(page).to_not have_content(@tire.price)
-        expect(page).to_not have_css("img[src*='#{@tire.image}']")
-        expect(page).to_not have_content(@tire.status)
-        expect(page).to_not have_content(@tire.inventory)
-
-        expect(page).to have_content("Item successfully deleted.")
       end
+
+      expect(current_path).to eq("/merchant/items")
+      expect(page).to_not have_content(@tire.name)
+      expect(page).to_not have_content(@tire.description)
+      expect(page).to_not have_content(@tire.price)
+      expect(page).to_not have_css("img[src*='#{@tire.image}']")
+      expect(page).to_not have_content(@tire.inventory)
+
+      expect(page).to have_content("Item successfully deleted.")
     end
 
-    xit "When I click on the link to add a new item, I am taken to the new item form page" do
+    it "When I click on the link to add a new item, I am taken to the new item form page" do
       visit "merchant/items"
 
       expect(page).to have_link("Add New Item")
