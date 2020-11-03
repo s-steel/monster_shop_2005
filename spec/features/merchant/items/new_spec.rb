@@ -40,8 +40,100 @@ describe "As a merchant employee" do
       fill_in 'item[inventory]', with: "10"
       click_button('Create Item')
 
-      expect(page).to have_content("Name cannot be blank.")
-      expect(current_path).to eq("/merchant/items/new")
+      expect(page).to have_content('Name cannot be blank.')
+      expect(current_path).to eq('/merchant/items/new')
+    end
+
+    it "Description cannot be blank" do
+      visit "/merchant/items/new"
+
+      fill_in 'item[name]', with: "Helmet"
+      fill_in 'item[description]', with: ""
+      fill_in 'item[image]', with: "https://i.shgcdn.com/944e4e88-f81a-4975-b2a2-c9beb2d3bcf1/-/format/auto/-/preview/3000x3000/-/quality/lighter/"
+      fill_in 'item[price]', with: "25"
+      fill_in 'item[inventory]', with: "10"
+      click_button('Create Item')
+
+      expect(page).to have_content('Description cannot be blank.')
+      expect(current_path).to eq('/merchant/items/new')
+    end
+
+    it 'Image URL may be left blank' do
+      visit "/merchant/items/new"
+
+      fill_in 'item[name]', with: "Helmet"
+      fill_in 'item[description]', with: "Safety First!"
+      fill_in 'item[image]', with: ""
+      fill_in 'item[price]', with: "25"
+      fill_in 'item[inventory]', with: "10"
+      click_button('Create Item')
+
+      expect(current_path).to eq('/merchant/items')
+      expect(page).to have_content('Helmet')
+      expect(page).to have_content('Safety First!')
+    end
+
+    it 'Price must be greater than $0.00' do
+      visit "/merchant/items/new"
+
+      fill_in 'item[name]', with: "Helmet"
+      fill_in 'item[description]', with: "Safety First!"
+      fill_in 'item[image]', with: "https://i.shgcdn.com/944e4e88-f81a-4975-b2a2-c9beb2d3bcf1/-/format/auto/-/preview/3000x3000/-/quality/lighter/"
+      fill_in 'item[price]', with: "0"
+      fill_in 'item[inventory]', with: "10"
+      click_button('Create Item')
+
+      expect(current_path).to eq('/merchant/items/new')
+      expect(page).to have_content('Price must be greater than $0.00')
+    end
+
+    it 'Inventory must be greater than 0' do
+      visit "/merchant/items/new"
+
+      fill_in 'item[name]', with: "Helmet"
+      fill_in 'item[description]', with: "Safety First!"
+      fill_in 'item[image]', with: "https://i.shgcdn.com/944e4e88-f81a-4975-b2a2-c9beb2d3bcf1/-/format/auto/-/preview/3000x3000/-/quality/lighter/"
+      fill_in 'item[price]', with: "25"
+      fill_in 'item[inventory]', with: "0"
+      click_button('Create Item')
+
+      expect(current_path).to eq('/merchant/items/new')
+      expect(page).to have_content('Inventory must be greater than zero.')
+    end
+
+    it "Entering valid info and submitting, I'm taken to items page with a flash
+        message saying my item is saved, with the item on the page and enabled for sale" do
+      visit "/merchant/items/new"
+
+      fill_in 'item[name]', with: "Helmet"
+      fill_in 'item[description]', with: "Safety First!"
+      fill_in 'item[image]', with: "https://i.shgcdn.com/944e4e88-f81a-4975-b2a2-c9beb2d3bcf1/-/format/auto/-/preview/3000x3000/-/quality/lighter/"
+      fill_in 'item[price]', with: "25"
+      fill_in 'item[inventory]', with: "15"
+      click_button('Create Item')
+
+      expect(current_path).to eq('/merchant/items')
+      expect(page).to have_content('Item added successfully!')
+
+      expect(page).to have_content('Helmet')
+      expect(page).to have_css("img[src*='https://i.shgcdn.com/944e4e88-f81a-4975-b2a2-c9beb2d3bcf1/-/format/auto/-/preview/3000x3000/-/quality/lighter/']")
+      expect(page).to have_content('Safety First!')
+      expect(page).to have_content('Inventory: 15')
+      expect(page).to have_content('Active')
+    end
+
+    it "If image URL was blank, a placeholder image is found" do
+      visit "/merchant/items/new"
+
+      fill_in 'item[name]', with: "Helmet"
+      fill_in 'item[description]', with: "Safety First!"
+      fill_in 'item[image]', with: ""
+      fill_in 'item[price]', with: "25"
+      fill_in 'item[inventory]', with: "15"
+      click_button('Create Item')
+
+      expect(current_path).to eq('/merchant/items')
+      expect(page).to have_css("img[src*='https://snellservices.com/wp-content/uploads/2019/07/image-coming-soon.jpg']")
     end
   end
 end
