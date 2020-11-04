@@ -43,7 +43,7 @@ class Merchant::ItemsController < ApplicationController
       redirect_to '/merchant/items'
     else
       flash[:error] = item.errors.full_messages.to_sentence
-      render :edit
+      redirect_to "/merchant/items/#{item.id}/edit"
     end
   end
 

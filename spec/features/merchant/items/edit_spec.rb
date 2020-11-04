@@ -74,7 +74,7 @@ describe 'merchant index page', type: :feature do
       expect(page).to have_content('Your item has been updated')
     end
 
-    it 'image field is left blanc there is a placeholder image for the thumbnail' do
+    xit 'image field is left blanc there is a placeholder image for the thumbnail' do
       visit "/merchant/items/#{@tire.id}/edit"
       fill_in "item[image]", with: ""
       click_button('Update Item')
@@ -82,6 +82,7 @@ describe 'merchant index page', type: :feature do
       within "#item-#{@tire.id}" do
         expect(page).to have_css("img[src*='/images/no-image-icon-23494.png']")
       end
+      save_and_open_page
     end
 
     it 'you cannot edit price to be less than 0 and inventory must be >= 0'
@@ -93,7 +94,7 @@ describe 'merchant index page', type: :feature do
       click_button('Update Item')
 
       expect(current_path).to eq("/merchant/items/#{@tire.id}/edit")
-      expect(page).to have_content('nope')
+      expect(page).to have_content("Name can't be blank and Description can't be blank")
       expect(find_field('item[name]').value).to eq("#{@tire.name}")
       expect(find_field('item[description]').value).to eq("#{@tire.description}")
       expect(find_field('item[image]').value).to eq("#{@tire.image}")
