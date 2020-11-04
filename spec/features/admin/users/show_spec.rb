@@ -37,6 +37,10 @@ describe "As an Admin user" do
       expect(page).to have_content(@user.zip)
       expect(page).to have_content(@user.email)
       expect(page).to have_link("My Orders")
+    end
+
+    it "I do not see a link to edit their profile" do
+      visit "/admin/users/#{@user.id}"
 
       expect(page).to_not have_link("Edit Profile")
       expect(page).to_not have_link("Change Password")
