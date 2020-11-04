@@ -170,7 +170,7 @@ describe 'merchant index page', type: :feature do
       end
     end
 
-    xit "When I click the delete link for an item I am returned to the items page, no longer see that
+    it "When I click the delete link for an item I am returned to the items page, no longer see that
         item, and see a flash message indicating this item is now deleted" do
       visit "merchant/items"
 

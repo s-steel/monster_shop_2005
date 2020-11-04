@@ -13,10 +13,8 @@ class Merchant::ItemsController < ApplicationController
 
   def create
     user = current_user
-    @item = user.merchant.items.create(item_params)
-    if @item.image == nil
-      @item[:image] = params[:item][:image]
-    else
+    @item = user.merchant.items.new(item_params)
+    if @item.image.nil?
       @item[:image] = 'https://snellservices.com/wp-content/uploads/2019/07/image-coming-soon.jpg'
     end
     if @item.inventory == 0
@@ -93,7 +91,7 @@ private
   end
 
   def item_params
-    params.require(:item).permit(:name,:description,:price,:inventory)
+    params.require(:item).permit(:name,:description,:price,:inventory,:image)
   end
 
   def create_error_response(error)
