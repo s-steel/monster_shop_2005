@@ -53,8 +53,10 @@
         <td>
           <p>
             <%= item_order.status.capitalize %>
-            <% if item_order.status != 'fulfilled'%>
+            <% if item_order.status != 'fulfilled' && item_order.quantity <= item_order.item.inventory %>
               <%= button_to 'Fulfill', merchant_order_path(@order.id), method: :patch, params: {todo: :fulfill, item_order: item_order.id} %>
+            <% elsif item_order.status != 'fulfilled' %>
+              Cannot fulfill due to lack of inventory
             <% end %>
           </p>
         </td>
