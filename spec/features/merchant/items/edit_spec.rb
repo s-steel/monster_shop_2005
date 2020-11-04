@@ -83,5 +83,22 @@ describe 'merchant index page', type: :feature do
         expect(page).to have_css("img[src*='/images/no-image-icon-23494.png']")
       end
     end
+
+    it 'you cannot edit price to be less than 0 and inventory must be >= 0'
+
+    it 'if any data is incorrect or missing I am returned to the form, flash message appears, fields are repopulated' do
+      visit "/merchant/items/#{@tire.id}/edit"
+      fill_in "item[name]", with: ""
+      fill_in "item[description]", with: ""
+      click_button('Update Item')
+
+      expect(current_path).to eq("/merchant/items/#{@tire.id}/edit")
+      expect(page).to have_content('nope')
+      expect(find_field('item[name]').value).to eq("#{@tire.name}")
+      expect(find_field('item[description]').value).to eq("#{@tire.description}")
+      expect(find_field('item[image]').value).to eq("#{@tire.image}")
+      expect(find_field('item[price]').value).to eq("#{@tire.price}")
+      expect(find_field('item[inventory]').value).to eq("#{@tire.inventory}")
+    end
   end
 end
