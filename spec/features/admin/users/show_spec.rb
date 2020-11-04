@@ -29,11 +29,13 @@ describe "As an Admin user" do
     it "I see the same info the user would" do
       visit "/admin/users/#{@user.id}"
 
+      expect(page).to have_content("User Profile")
       expect(page).to have_content(@user.name)
       expect(page).to have_content(@user.address)
       expect(page).to have_content(@user.city)
       expect(page).to have_content(@user.state)
       expect(page).to have_content(@user.zip)
+      expect(page).to have_content(@user.email)
       expect(page).to have_link("My Orders")
 
       expect(page).to_not have_link("Edit Profile")
