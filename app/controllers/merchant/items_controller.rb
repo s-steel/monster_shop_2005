@@ -13,20 +13,20 @@ class Merchant::ItemsController < ApplicationController
 
   def create
     user = current_user
-    item = user.merchant.items.create(item_params)
-    if item.inventory == 0
+    @item = user.merchant.items.create(item_params)
+    if @item.inventory == 0
       flash[:error] = 'Inventory must be greater than zero.'
       redirect_to '/merchant/items/new'
       return
     end
-    
+
     begin
-      item.save!
+      @item.save!
       flash[:success] = 'Item added successfully!'
       redirect_to '/merchant/items'
     rescue ActiveRecord::RecordInvalid => e
       create_error_response(e)
-      redirect_to '/merchant/items/new'
+      render :new
     end
   end
 
@@ -58,7 +58,7 @@ private
   def create_error_response(error)
     case error.message
     when "Validation failed: Name can't be blank"
-      flash[:error] = 'Name cannot be blank.'
+      flash.now[:error] = 'Name cannot be blank.'
     when "Validation failed: Description can't be blank"
       flash[:error] = 'Description cannot be blank.'
     when 'Validation failed: Price must be greater than 0'
