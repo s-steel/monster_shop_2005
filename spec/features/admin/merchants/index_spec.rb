@@ -130,5 +130,21 @@ describe 'admin/merchant index page', type: :feature do
       expect(page).to have_content(@pull_toy.name)
       expect(page).to have_content(@dog_bone.name)
     end
+
+    it 'you can see all the merchants in the system' do
+      visit 'admin/merchants'
+      
+      expect(page).to have_content("Merchants")
+      expect(page).to have_content(@dog_shop.name)
+      expect(page).to have_content(@bike_shop.name)
+    end
+
+    it 'next to each merchants name I see their city and state'
+    # within ".merchant-#{@dog_shop.id}" do
+    #   click_button('Enable')
+    # end
+    it 'merchants name is a link to their dashboard ex/ "/admin/merchants/5"'
+
+    it 'I see disable or enable next to all merchants'
   end
 end
