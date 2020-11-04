@@ -65,11 +65,17 @@ Rails.application.routes.draw do
     get '/users', to: 'users#index'
     get '/users/:user_id', to: 'users#show'
     get '/merchants/:id', to: 'merchants#show'
+    get '/merchants', to: 'merchants#index'
+    patch '/merchants/:id/disable', to: 'merchants#disable'
+    patch '/merchants/:id/enable', to: 'merchants#enable'
   end
 
   namespace :merchant do
     get '/', to: 'dashboard#show'
+    resources :items, execpt: [:show]
     get '/orders/:order_id', to: 'orders#show'
+    patch '/items/:id/deactivate', to: 'items#deactivate'
+    patch '/items/:id/activate', to: 'items#activate'
     patch '/orders/:id', to: 'orders#update', as: :order
     get '/items', to: 'items#index'
   end

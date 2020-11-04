@@ -40,9 +40,7 @@ class Order < ApplicationRecord
   end
 
   def unfulfill_items
-    item_orders.each do |item_order|
-      item_order.status = 'unfulfilled'
-    end
+    item_orders.update_all(status: 'unfulfilled')
   end
 
   def merchant_items(merch_id)

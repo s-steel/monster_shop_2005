@@ -30,12 +30,12 @@ describe 'Order show page' do
 
     it 'visit a specific order and see its info' do
       visit profile_orders_show_path(@order_1.id)
-      # expect(page).to have_content('Order ID:')
-      # expect(page).to have_content('Date order was made:')
-      # expect(page).to have_content('Date order was last updated:')
-      # expect(page).to have_content('Order Status:')
-      # expect(page).to have_content('Quantity of items in order:')
-      # expect(page).to have_content('Grand total:')
+      expect(page).to have_content('Id')
+      expect(page).to have_content('Date Created')
+      expect(page).to have_content('Date Updated')
+      expect(page).to have_content('Order Status')
+      expect(page).to have_content('Item Count:')
+      expect(page).to have_content('Total:')
       expect(page).to have_content(@order_1.id)
       expect(page).to have_content(@order_1.created_at.strftime('%m/%d/%Y'))
       expect(page).to have_content(@order_1.updated_at.strftime('%m/%d/%Y'))
@@ -50,6 +50,7 @@ describe 'Order show page' do
         expect(page).to have_content(@item_order_1.item.price)
         expect(page).to have_content(@item_order_1.subtotal)
         expect(page).to have_content(@item_order_1.quantity)
+        expect(page).to have_content(@item_order_1.status)
       end
 
       within "#item-#{@item_order_2.item_id}" do
@@ -59,6 +60,7 @@ describe 'Order show page' do
         expect(page).to have_content(@item_order_2.item.price)
         expect(page).to have_content(@item_order_2.subtotal)
         expect(page).to have_content(@item_order_2.quantity)
+        expect(page).to have_content(@item_order_2.status)
       end
     end
 
@@ -67,22 +69,29 @@ describe 'Order show page' do
       expect(page).to have_link('Cancel Order')
     end
 
-    xit "When I click the cancel order button, each row in the 'order items' table status is unfulfilled,
+    it "When I click the cancel order button, each row in the 'order items' table status is unfulfilled,
         the order is cancelled, items are returned to their merchants, I'm returned to my profile
         page and see flash saying order is cancelled and this order's status is cancelled" do
       visit profile_orders_show_path(@order_1.id)
 
-      # Items returned to merchants... Only when "packaged" status?
+      click_link("Cancel Order")
 
-      click_link('Cancel Order')
-      # require "pry"; binding.pry
+      expect(current_path).to eq("/profile")
+      expect(page).to have_content("Your order has been cancelled.")
 
-      expect(current_path).to eq('/profile')
-      expect(page).to have_content('Your order has been cancelled.')
-      expect(@order_1.status).to eq('cancelled')
-      expect(@item_order_1.status).to eq('unfulfilled')
-      expect(@item_order_2.status).to eq('unfulfilled')
-      # require "pry"; binding.pry
+      visit profile_orders_show_path(@order_1.id)
+      
+      within ".order-info" do
+        expect(page).to have_content('cancelled')
+      end
+
+      within "#item-#{@item_order_1.item_id}" do
+        expect(page).to have_content('unfulfilled')
+      end
+
+      within "#item-#{@item_order_2.item_id}" do
+        expect(page).to have_content('unfulfilled')
+      end
     end
 
     describe 'As a merchant user' do
@@ -150,6 +159,7 @@ describe 'Order show page' do
         @order4.add_item @staples, 10
         @order4.add_item @push_pin, 3
       end
+
       it 'Visit order show page' do
         visit merchant_path
 

@@ -5,7 +5,6 @@ describe Item, type: :model do
     it { should validate_presence_of :name }
     it { should validate_presence_of :description }
     it { should validate_presence_of :price }
-    it { should validate_presence_of :image }
     it { should validate_presence_of :inventory }
     it { should validate_inclusion_of(:active?).in_array([true, false]) }
   end
@@ -57,6 +56,12 @@ describe Item, type: :model do
       order = @user.orders.create(name: 'Meg', address: '123 Stang Ave', city: 'Hershey', state: 'PA', zip: 17_033)
       order.item_orders.create(item: @chain, price: @chain.price, quantity: 2)
       expect(@chain.no_orders?).to eq(false)
+    end
+
+    it 'toggle_active' do
+      expect(@chain.active?).to eq(true)
+      @chain.toggle_active
+      expect(@chain.active?).to eq(false)
     end
   end
 

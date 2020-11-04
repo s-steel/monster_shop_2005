@@ -1,1 +1,38 @@
-<h1>@merchant.name</h1>
+<h1><%= @merchant.name %></h1>
+
+<%= link_to "Add New Item", "/merchant/items/new" %>
+<section class="grid-container">
+  <% @merchant.items.each do |item| %>
+    <section class = "grid-item" id= 'item-<%=item.id%>'>
+      <h2> <%=link_to item.name, "/items/#{item.id}" %> </h2>
+
+      <p>Sold by: <%=link_to item.merchant.name, "/merchants/#{item.merchant.id}" %></p>
+
+        <% if item.image == "" %>
+          <%= image_tag("https://snellservices.com/wp-content/uploads/2019/07/image-coming-soon.jpg", width:"20%") %>
+        <% else %>
+          <%= link_to image_tag("#{item.image}", width:"20%"), "/items/#{item.id}", class:"image-link-#{item.id}" %>
+        <% end %>
+
+      <p> <%= item.description %> </p>
+
+      <p>Price: <%=number_to_currency(item.price) %> </p>
+
+      <p>Inventory: <%= item.inventory %> </p>
+
+      <% if item.active? %>
+        <p>Active</p>
+        <%= button_to "Deactivate", "/merchant/items/#{item.id}/deactivate", method: :patch %>
+      <% else %>
+        <p>Inactive</p>
+        <%= button_to "Activate", "/merchant/items/#{item.id}/activate", method: :patch %>
+      <% end %>
+
+      <%= button_to "Edit", "/merchant/items/#{item.id}/edit", method: :get%>
+
+      <% if item.item_orders.empty? %>
+        <%= link_to "Delete", "/merchant/items/#{item.id}", method: :delete %>
+      <% end %>
+    </section>
+  <% end %>
+</section>
