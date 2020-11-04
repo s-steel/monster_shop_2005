@@ -31,6 +31,10 @@ class Merchant::ItemsController < ApplicationController
     redirect_to "/merchant/items"
   end
 
+  def edit
+    @item = Item.find(params[:id])
+  end
+
 private
   def require_merchant
     render file: "/public/404" unless current_merchant?

@@ -196,22 +196,5 @@ describe 'merchant index page', type: :feature do
       click_link("Add New Item")
       expect(current_path).to eq("/merchant/items/new")
     end
-
-    it 'each item has an edit button' do
-      visit '/merchant/items'
-
-      within "#item-#{@tire.id}" do
-        expect(page).to have_button("Edit")
-      end
-      within "#item-#{@chain.id}" do
-        expect(page).to have_button("Edit")
-      end
-      within "#item-#{@pedal.id}" do
-        expect(page).to have_button("Edit")
-      end
-      within "#item-#{@reflector.id}" do
-        expect(page).to have_button("Edit")
-      end
-    end 
   end
 end
