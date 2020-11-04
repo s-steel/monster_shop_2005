@@ -74,7 +74,14 @@ describe 'merchant index page', type: :feature do
       expect(page).to have_content('Your item has been updated')
     end
 
-    it 'image field is left blanc there is a placeholder image for the thumbnail'
+    it 'image field is left blanc there is a placeholder image for the thumbnail' do
+      visit "/merchant/items/#{@tire.id}/edit"
+      fill_in "item[image]", with: ""
+      click_button('Update Item')
 
+      within "#item-#{@tire.id}" do
+        expect(page).to have_css("img[src*='/images/no-image-icon-23494.png']")
+      end
+    end
   end
 end

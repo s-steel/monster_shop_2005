@@ -53,7 +53,7 @@ private
   end
 
   def item_params
-    params.require(:item).permit(:name,:description,:price,:inventory,:image)
-    .with_defaults(image: 'https://us.123rf.com/450wm/pavelstasevich/pavelstasevich1811/pavelstasevich181101065/112815953-stock-vector-no-image-available-icon-flat-vector.jpg?ver=6')
+    params.require(:item).permit(:name,:description,:price,:inventory)
+    .with_defaults(image: '/images/no-image-icon-23494.png')
   end
 end
