@@ -67,14 +67,23 @@ class Merchant::ItemsController < ApplicationController
   def update
     item = Item.find(params[:id])
     item.update(item_params)
+    if item.inventory < 0
+      flash[:error] = 'Inventory cannot be below 0.'
+      redirect_to "/merchant/items/#{item.id}/edit"
+      return
+    end
     if params[:item][:image] == ""
       item[:image] = 'https://snellservices.com/wp-content/uploads/2019/07/image-coming-soon.jpg'
     end
-    if item.save
+
+    begin
+      item.save!
       flash[:message] = 'Your item has been updated'
       redirect_to '/merchant/items'
-    else
-      flash[:error] = item.errors.full_messages.to_sentence
+    rescue ActiveRecord::RecordInvalid => e
+      create_error_response(e)
+    # else
+    #   flash[:error] = item.errors.full_messages.to_sentence
       redirect_to "/merchant/items/#{item.id}/edit"
     end
   end
@@ -90,13 +99,6 @@ private
   end
 
   def create_error_response(error)
-    case error.message
-    when "Validation failed: Name can't be blank"
-      flash.now[:error] = 'Name cannot be blank.'
-    when "Validation failed: Description can't be blank"
-      flash[:error] = 'Description cannot be blank.'
-    when 'Validation failed: Price must be greater than 0'
-      flash[:error] = 'Price must be greater than $0.00'
-    end
+      flash[:error] = error.message.delete_prefix('Validation failed: ')
   end
 end

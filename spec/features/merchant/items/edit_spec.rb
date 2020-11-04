@@ -84,16 +84,39 @@ describe 'merchant index page', type: :feature do
       end
     end
 
-    it 'you cannot edit price to be less than 0 and inventory must be >= 0'
+    it 'Price must be greater than $0.00' do
+      visit "/merchant/items/#{@tire.id}/edit"
+
+      fill_in 'item[name]', with: "Helmet"
+      fill_in 'item[price]', with: "0"
+      fill_in 'item[inventory]', with: "10"
+      click_button('Update Item')
+
+      expect(page).to have_content('Price must be greater than 0')
+    end
+
+    it 'Inventory cannot be less than 0' do
+      visit "/merchant/items/#{@tire.id}/edit"
+
+      fill_in 'item[name]', with: "Helmet"
+      fill_in 'item[description]', with: "Safety First!"
+      fill_in 'item[image]', with: "https://i.shgcdn.com/944e4e88-f81a-4975-b2a2-c9beb2d3bcf1/-/format/auto/-/preview/3000x3000/-/quality/lighter/"
+      fill_in 'item[price]', with: "25"
+      fill_in 'item[inventory]', with: "-5"
+      click_button('Update Item')
+
+      expect(page).to have_content('Inventory cannot be below 0.')
+    end
 
     it 'if any data is incorrect or missing I am returned to the form, flash message appears, fields are repopulated' do
       visit "/merchant/items/#{@tire.id}/edit"
+
       fill_in "item[name]", with: ""
       fill_in "item[description]", with: ""
       click_button('Update Item')
 
-      expect(current_path).to eq("/merchant/items/#{@tire.id}/edit")
-      expect(page).to have_content("Name can't be blank and Description can't be blank")
+      expect(page).to have_content('Edit Item')
+      expect(page).to have_content("Name can't be blank, Description can't be blank")
       expect(find_field('item[name]').value).to eq("#{@tire.name}")
       expect(find_field('item[description]').value).to eq("#{@tire.description}")
       expect(find_field('item[image]').value).to eq("#{@tire.image}")
