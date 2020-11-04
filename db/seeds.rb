@@ -22,6 +22,7 @@ dog_bone = dog_shop.items.create(name: 'Dog Bone', description: "They'll love it
 
 
 # @mike = Merchant.create(name: "Mikemart", address: '123 Bike Rd.', city: 'Denver', state: 'CO', zip: 80_203)
+# @meg = Merchant.create(name: "Megmart", address: '123 Bike Rd.', city: 'Denver', state: 'CO', zip: 80_203)
 
 # @user = User.create!(name: 'Harold Guy',
 #                      address: '123 Macho St',
@@ -39,19 +40,29 @@ dog_bone = dog_shop.items.create(name: 'Dog Bone', description: "They'll love it
 #                           email: 'mikelol@email.com',
 #                           password: 'luggagecombo',
 #                           role: 1,
-#                           merchant_id: bike_shop.id)
+#                           merchant_id: @mike.id)
+
+# @meg_user = User.create!(name: 'Meg Gal',
+#                           address: '123 Macho St',
+#                           city: 'Lakewood',
+#                           state: 'CO',
+#                           zip: '80328',
+#                           email: 'megwoo@email.com',
+#                           password: 'luggagecombo',
+#                           role: 1,
+#                           merchant_id: @meg.id)
 
 # allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(@mike_user)
 
-# @tire = @mike.items.create(name: 'Gatorskins', description: "They'll never pop!", price: 100, image: 'https://www.rei.com/media/4e1f5b05-27ef-4267-bb9a-14e35935f218?size=784x588', inventory: 12)
+# @tire = @meg.items.create(name: 'Gatorskins', description: "They'll never pop!", price: 100, image: 'https://www.rei.com/media/4e1f5b05-27ef-4267-bb9a-14e35935f218?size=784x588', inventory: 12)
 # @paper = @mike.items.create(name: 'Lined Paper', description: 'Great for writing on!', price: 20, image: 'https://cdn.vertex42.com/WordTemplates/images/printable-lined-paper-wide-ruled.png', inventory: 3)
 # @pencil = @mike.items.create(name: 'Pencil', description: 'You can write on paper with it!', price: 2, image: 'https://images-na.ssl-images-amazon.com/images/I/31BlVr01izL._SX425_.jpg', inventory: 100)
 # @pen = @mike.items.create(name: 'Yellow Pen', description: 'You can write on paper with it!', price: 2, image: 'https://images-na.ssl-images-amazon.com/images/I/31BlVr01izL._SX425_.jpg', inventory: 100)
 # @inkwell = @mike.items.create(name: 'Yellow Inkwell', description: 'You can write on paper with it!', price: 4, image: 'https://images-na.ssl-images-amazon.com/images/I/31BlVr01izL._SX425_.jpg', inventory: 100)
-# @lead = @mike.items.create(name: 'Yellow Lead', description: 'You can write on paper with it!', price: 1, image: 'https://images-na.ssl-images-amazon.com/images/I/31BlVr01izL._SX425_.jpg', inventory: 100)
+# @lead = @meg.items.create(name: 'Yellow Lead', description: 'You can write on paper with it!', price: 1, image: 'https://images-na.ssl-images-amazon.com/images/I/31BlVr01izL._SX425_.jpg', inventory: 100)
 # @sticky_note = @mike.items.create(name: 'Yellow Sticky Note', description: 'You can write on paper with it!', price: 4, image: 'https://images-na.ssl-images-amazon.com/images/I/31BlVr01izL._SX425_.jpg', inventory: 100)
 # @paper_clip = @mike.items.create(name: 'Yellow Paper Clip', description: 'You can write on paper with it!', price: 6, image: 'https://images-na.ssl-images-amazon.com/images/I/31BlVr01izL._SX425_.jpg', inventory: 100)
-# @push_pin = @mike.items.create(name: 'Yellow Push Pin', description: 'You can write on paper with it!', price: 6, image: 'https://images-na.ssl-images-amazon.com/images/I/31BlVr01izL._SX425_.jpg', inventory: 100)
+# @push_pin = @meg.items.create(name: 'Yellow Push Pin', description: 'You can write on paper with it!', price: 6, image: 'https://images-na.ssl-images-amazon.com/images/I/31BlVr01izL._SX425_.jpg', inventory: 100)
 # @stapler = @mike.items.create(name: 'Yellow Stapler', description: 'You can write on paper with it!', price: 10, image: 'https://images-na.ssl-images-amazon.com/images/I/31BlVr01izL._SX425_.jpg', inventory: 100)
 # @staples = @mike.items.create(name: 'Yellow Staples', description: 'You can write on paper with it!', price: 5, image: 'https://images-na.ssl-images-amazon.com/images/I/31BlVr01izL._SX425_.jpg', inventory: 100)
 

@@ -76,5 +76,7 @@ Rails.application.routes.draw do
     get '/orders/:order_id', to: 'orders#show'
     patch '/items/:id/deactivate', to: 'items#deactivate'
     patch '/items/:id/activate', to: 'items#activate'
+    patch '/orders/:id', to: 'orders#update', as: :order
+    get '/items', to: 'items#index'
   end
 end

@@ -47,6 +47,10 @@ class Order < ApplicationRecord
     items.where(merchant_id: merch_id)
   end
 
+  def merchant_item_orders(merch_id)
+    item_orders.joins(:item).where(items: { merchant_id: merch_id })
+  end
+
   def total_sales(merch_id)
     merchant_items(merch_id).sum('item_orders.quantity * item_orders.price')
   end
