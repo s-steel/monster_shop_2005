@@ -88,4 +88,16 @@ describe 'US 50-51: Merchant order fulfillment' do
 
     expect(@stapler.inventory).to eq(98)
   end
+
+  it 'Cannot fulfill due to lack of inventory' do
+    visit merchant_path
+
+    click_link("Order #{@order4.id}")
+
+    within("#item_order-#{@item_order4.id}") do
+      expect(page).to_not have_link('Fulfill')
+      expect(page).to have_content('Cannot fulfill due to lack of inventory')
+    end
+
+  end
 end
