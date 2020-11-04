@@ -57,6 +57,12 @@ describe Item, type: :model do
       order.item_orders.create(item: @chain, price: @chain.price, quantity: 2)
       expect(@chain.no_orders?).to eq(false)
     end
+
+    it 'toggle_active' do
+      expect(@chain.active?).to eq(true)
+      @chain.toggle_active
+      expect(@chain.active?).to eq(false)
+    end
   end
 
   describe 'class methods' do

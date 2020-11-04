@@ -28,6 +28,8 @@
         <%= button_to "Activate", "/merchant/items/#{item.id}/activate", method: :patch %>
       <% end %>
 
+      <%= button_to "Edit", "/merchant/items/#{item.id}/edit", method: :get%>
+
       <% if item.item_orders.empty? %>
         <%= link_to "Delete", "/merchant/items/#{item.id}", method: :delete %>
       <% end %>
