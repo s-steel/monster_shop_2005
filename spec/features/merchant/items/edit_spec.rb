@@ -74,15 +74,14 @@ describe 'merchant index page', type: :feature do
       expect(page).to have_content('Your item has been updated')
     end
 
-    xit 'image field is left blanc there is a placeholder image for the thumbnail' do
+    it 'image field is left blanc there is a placeholder image for the thumbnail' do
       visit "/merchant/items/#{@tire.id}/edit"
       fill_in "item[image]", with: ""
       click_button('Update Item')
 
       within "#item-#{@tire.id}" do
-        expect(page).to have_css("img[src*='/images/no-image-icon-23494.png']")
+        expect(page).to have_css("img[src*='https://snellservices.com/wp-content/uploads/2019/07/image-coming-soon.jpg']")
       end
-      save_and_open_page
     end
 
     it 'you cannot edit price to be less than 0 and inventory must be >= 0'

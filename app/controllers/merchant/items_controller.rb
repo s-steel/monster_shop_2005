@@ -14,6 +14,11 @@ class Merchant::ItemsController < ApplicationController
   def create
     user = current_user
     @item = user.merchant.items.create(item_params)
+    if @item.image == nil
+      @item[:image] = params[:item][:image]
+    else
+      @item[:image] = 'https://snellservices.com/wp-content/uploads/2019/07/image-coming-soon.jpg'
+    end
     if @item.inventory == 0
       flash[:error] = 'Inventory must be greater than zero.'
       redirect_to '/merchant/items/new'
@@ -62,6 +67,9 @@ class Merchant::ItemsController < ApplicationController
   def update
     item = Item.find(params[:id])
     item.update(item_params)
+    if params[:item][:image] == ""
+      item[:image] = 'https://snellservices.com/wp-content/uploads/2019/07/image-coming-soon.jpg'
+    end
     if item.save
       flash[:message] = 'Your item has been updated'
       redirect_to '/merchant/items'
@@ -72,16 +80,13 @@ class Merchant::ItemsController < ApplicationController
   end
 
 private
-  def item_params
-    params.require(:item).permit(:name, :description, :image, :price, :inventory)
-  end
 
   def require_merchant
     render file: "/public/404" unless current_merchant?
   end
 
   def item_params
-    params.require(:item).permit(:name,:description,:price,:inventory).with_defaults(image: 'https://snellservices.com/wp-content/uploads/2019/07/image-coming-soon.jpg')
+    params.require(:item).permit(:name,:description,:price,:inventory)
   end
 
   def create_error_response(error)
