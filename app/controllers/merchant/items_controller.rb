@@ -56,13 +56,7 @@ private
   end
 
   def create_error_response(error)
-    case error.message
-    when "Validation failed: Name can't be blank"
-      flash.now[:error] = 'Name cannot be blank.'
-    when "Validation failed: Description can't be blank"
-      flash[:error] = 'Description cannot be blank.'
-    when 'Validation failed: Price must be greater than 0'
-      flash[:error] = 'Price must be greater than $0.00'
-    end
+    require "pry"; binding.pry
+    flash[:error] = error.message.delete_prefix('Validation failed: ')
   end
 end

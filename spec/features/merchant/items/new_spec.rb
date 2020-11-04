@@ -90,7 +90,7 @@ describe "As a merchant employee" do
       fill_in 'item[inventory]', with: "10"
       click_button('Create Item')
 
-      expect(page).to have_content('Name cannot be blank.')
+      expect(page).to have_content("Name can't be blank")
       expect(page).to have_content('Enter New Item Info')
     end
 
@@ -104,7 +104,7 @@ describe "As a merchant employee" do
       fill_in 'item[inventory]', with: "10"
       click_button('Create Item')
 
-      expect(page).to have_content('Description cannot be blank.')
+      expect(page).to have_content("Description can't be blank")
       expect(page).to have_content('Enter New Item Info')
     end
 
@@ -118,7 +118,7 @@ describe "As a merchant employee" do
       fill_in 'item[inventory]', with: "10"
       click_button('Create Item')
 
-      expect(page).to have_content('Price must be greater than $0.00')
+      expect(page).to have_content('Price must be greater than 0')
       expect(page).to have_content('Enter New Item Info')
     end
 
@@ -146,7 +146,7 @@ describe "As a merchant employee" do
       fill_in 'item[inventory]', with: "10"
       click_button('Create Item')
 
-      expect(page).to have_content('Name cannot be blank.')
+      expect(page).to have_content("Name can't be blank")
       expect(page).to have_content('Enter New Item Info')
 
       expect(find_field('item[name]').value).to eq('')
