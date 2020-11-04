@@ -54,10 +54,27 @@ describe 'merchant index page', type: :feature do
       expect(find_field('item[image]').value).to eq("#{@tire.image}")
       expect(find_field('item[price]').value).to eq("#{@tire.price}")
       expect(find_field('item[inventory]').value).to eq("#{@tire.inventory}")
-
     end
-    it 'when form is submitted I am taken back to my items page and I see a flash message indicating image is updated,
-        if image field is left blanc there is a placeholder image for the thumbnail'
+
+    it 'when form is submitted I am taken back to my items page and I see a flash message indicating image is updated' do
+      visit "/merchant/items/#{@tire.id}/edit"
+
+      fill_in "item[description]", with: "They might pop..."
+      fill_in "item[price]", with: "90"
+      click_button('Update Item')
+
+      expect(current_path).to eq('/merchant/items')
+
+      within "#item-#{@tire.id}" do
+        expect(page).to have_content('90')
+        expect(page).to have_content('They might pop...')
+        expect(page).to have_content('Active')
+      end
+
+      expect(page).to have_content('Your item has been updated')
+    end
+
+    it 'image field is left blanc there is a placeholder image for the thumbnail'
 
   end
 end
