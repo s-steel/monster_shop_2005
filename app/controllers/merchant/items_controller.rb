@@ -82,8 +82,6 @@ class Merchant::ItemsController < ApplicationController
       redirect_to '/merchant/items'
     rescue ActiveRecord::RecordInvalid => e
       create_error_response(e)
-    # else
-    #   flash[:error] = item.errors.full_messages.to_sentence
       redirect_to "/merchant/items/#{item.id}/edit"
     end
   end
