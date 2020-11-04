@@ -40,13 +40,15 @@ class Order < ApplicationRecord
   end
 
   def unfulfill_items
-    item_orders.each do |item_order|
-      item_order.status = 'unfulfilled'
-    end
+    item_orders.update_all(status: 'unfulfilled')
   end
 
   def merchant_items(merch_id)
     items.where(merchant_id: merch_id)
+  end
+
+  def merchant_item_orders(merch_id)
+    item_orders.joins(:item).where(items: { merchant_id: merch_id })
   end
 
   def total_sales(merch_id)

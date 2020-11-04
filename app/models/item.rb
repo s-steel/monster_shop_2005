@@ -7,7 +7,6 @@ class Item <ApplicationRecord
   validates_presence_of :name,
                         :description,
                         :price,
-                        :image,
                         :inventory
   validates_inclusion_of :active?, :in => [true, false]
   validates_numericality_of :price, greater_than: 0
@@ -31,5 +30,9 @@ class Item <ApplicationRecord
 
   def self.worst_item_stats(limit)
     select("items.*, sum(item_orders.quantity) as total_quantity").joins(:item_orders).group(:id).order("total_quantity").limit(limit)
+  end
+
+  def toggle_active
+    toggle(:active?)
   end
 end

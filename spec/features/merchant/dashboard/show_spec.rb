@@ -73,9 +73,9 @@ describe "As a merchant employee" do
     it "If any users have pending orders containing items I sell, I see a list of these orders" do
       visit "/merchant"
 
-      expect(page).to have_content("#{@order_1.id}")
-      expect(page).to have_content("#{@order_2.id}")
-      expect(page).to_not have_content("#{@order_3.id}")
+      expect(page).to have_content(@order_1.id)
+      expect(page).to have_content(@order_2.id)
+      expect(page).to_not have_content(@order_3.id)
     end
 
     it "I see ID of the order (linking to order show page), date order was made, total quantity of items,

@@ -140,7 +140,7 @@ describe "As an admin user" do
       end
     end
 
-    xit 'click ship button for an order and order status changes to shipped' do
+    it 'click ship button for an order and order status changes to shipped' do
       visit '/admin'
 
       within "#order-#{@order_3.id}" do
@@ -158,9 +158,6 @@ describe "As an admin user" do
         expect(page).to have_content(@order_3.id)
         expect(page).to have_content(@order_3.user.name)
       end
-      expect(@order_3.status).to eq("shipped")
-      # save_and_open_page
-      # binding.pry
     end
 
     it 'user can no longer cancel a shipped order' do
@@ -168,6 +165,10 @@ describe "As an admin user" do
 
       visit profile_orders_show_path(order_3.id)
       expect(page).to_not have_link("Cancel Order")
+
+      within ".order-info" do
+        expect(page).to have_content('shipped')
+      end
 
       visit profile_orders_show_path(@order_1.id)
       expect(page).to have_link("Cancel Order")
