@@ -80,7 +80,7 @@ describe 'Order show page' do
       expect(page).to have_content("Your order has been cancelled.")
 
       visit profile_orders_show_path(@order_1.id)
-      
+
       within ".order-info" do
         expect(page).to have_content('cancelled')
       end
@@ -161,7 +161,7 @@ describe 'Order show page' do
       end
 
       it 'Visit order show page' do
-        visit merchant_path
+        visit '/merchant'
 
         click_link("Order #{@order4.id}")
 

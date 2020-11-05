@@ -68,7 +68,7 @@ describe 'US 50-51: Merchant order fulfillment' do
   end
 
   it 'Part fulfillment' do
-    visit merchant_path
+    visit '/merchant'
 
     click_link("Order #{@order4.id}")
 
@@ -90,7 +90,7 @@ describe 'US 50-51: Merchant order fulfillment' do
   end
 
   it 'Cannot fulfill due to lack of inventory' do
-    visit merchant_path
+    visit '/merchant'
 
     click_link("Order #{@order4.id}")
 
