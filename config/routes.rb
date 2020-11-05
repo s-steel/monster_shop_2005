@@ -3,10 +3,10 @@ Rails.application.routes.draw do
 
   root 'welcome#index'
 
-  resources :merchants
   # resources :merchants do
   #   resources :items, only: [:index, :new, :create]
   # end
+  resources :merchants
   get '/merchants/:merchant_id/items', to: 'items#index'
   get '/merchants/:merchant_id/items/new', to: 'items#new'
   post '/merchants/:merchant_id/items', to: 'items#create'
