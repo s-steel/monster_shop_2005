@@ -20,6 +20,20 @@ describe User, type: :model do
     it { should belong_to(:merchant).optional }
   end
 
+  describe 'instance methods' do
+    it "#date_created" do
+      user = User.create!(name: 'Mike Dao',
+                          address: '123 Main St',
+                          city: 'Denver',
+                          state: 'CO',
+                          zip: '80428',
+                          email: 'mike5@turing.com',
+                          password: 'ilikefood',
+                          role: 0)
+      expect(user.date_created).to eq(user.created_at.strftime('%m/%d/%Y'))
+    end
+  end
+
   describe "roles" do
     it "can be created as a default user" do
       user = User.create!(name: 'Mike Dao',

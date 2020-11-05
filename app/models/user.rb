@@ -9,4 +9,8 @@ class User < ApplicationRecord
   has_secure_password
 
   enum role: %w(default merchant_employee admin)
+
+  def date_created
+    created_at.strftime('%m/%d/%Y')
+  end
 end
