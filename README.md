@@ -27,17 +27,17 @@ This is a short explaination of each piece of functionality that we implemented.
 **[Database Schema](#database-schema)**<br>
 **[Navigation](#navigation)**<br>
 **[User Registration](#user-registration)**<br>
-**[Login/Logout](#login-logout)**<br>
+**[Login/Logout](#login/logout)**<br>
 **[Items](#items)**<br>
 **[User Profile](#user-profile)**<br>
-**[Shopping Cart & Checkout](#shopping-cart-and-checkout)**<br>
+**[Shopping Cart & Checkout](#shopping-cart-&-checkout)**<br>
 **[Orders](#orders)**<br>
 **[Merchant Actions](#merchant-actions)**<br>
 **[Order Fulfillment](#order-fulfillment)**<br>
 **[Admin Actions](#admin-actions)**<br>
 **[Next Time](#next-time)**<br>
 
-## Schema
+## Database Schema
 
 ![Database Schema](app/assets/images/monster_shop_database_schema.png)
 
