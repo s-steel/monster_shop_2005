@@ -33,32 +33,26 @@ Rails.application.routes.draw do
   delete '/cart', to: 'cart#empty'
   delete '/cart/:item_id', to: 'cart#remove_item'
 
-  get '/orders/new', to: 'orders#new'
-  post '/orders', to: 'orders#create'
+  resources :orders, only: [:new, :create]
 
   get '/register', to: 'users#new'
   post '/register', to: 'users#create'
-  get '/profile', to: 'users#show'
-
-  get '/profile/orders', to: 'users#orders', as: :profile_orders
-  get '/profile/orders/:id', to: 'orders#show', as: :profile_orders_show
-  get '/profile/edit', to: 'users#edit'
-  patch '/profile', to: 'users#update', as: :user
-
-  get '/profile/change-password', to: 'users#change_password'
-  patch '/profile/change-password', to: 'users#update_password'
-  # Plz refactor inside namespace
 
   namespace :profile do
     patch '/orders/:id', to: 'orders#update', as: :profile_orders_cancel
   end
+  get '/profile/orders', to: 'users#orders', as: :profile_orders
+  get '/profile/orders/:id', to: 'orders#show', as: :profile_orders_show
+  get '/profile', to: 'users#show'
+  get '/profile/edit', to: 'users#edit'
+  patch '/profile', to: 'users#update', as: :user
+  get '/profile/change-password', to: 'users#change_password'
+  patch '/profile/change-password', to: 'users#update_password'
 
   get '/login', to: 'sessions#new'
   post '/login', to: 'sessions#create'
   get '/logout', to: 'sessions#destroy'
 
-
-  # Admin
   namespace :admin do
     get '/', to: 'dashboard#index'
     patch '/orders/:id', to: 'dashboard#ship'
