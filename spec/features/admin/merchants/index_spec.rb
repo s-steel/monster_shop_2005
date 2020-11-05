@@ -139,7 +139,7 @@ describe 'admin/merchant index page', type: :feature do
       expect(page).to have_content(@bike_shop.name)
     end
 
-    xit 'next to each merchants name I see their city and state' do
+    it 'next to each merchants name I see their city and state' do
       visit 'admin/merchants'
 
       within ".merchant-#{@bike_shop.id}" do
@@ -162,6 +162,15 @@ describe 'admin/merchant index page', type: :feature do
       expect(current_path).to eq("/admin/merchants/#{@dog_shop.id}")
     end
 
-    it 'I see disable or enable next to all merchants'
+    it 'I see disable or enable next to all merchants' do
+      visit '/admin/merchants'
+
+      within ".merchant-#{@dog_shop.id}" do
+        expect(page).to have_button("Enable")
+      end
+      within ".merchant-#{@bike_shop.id}" do
+        expect(page).to have_button("Disable")
+      end
+    end
   end
 end
