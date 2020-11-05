@@ -4,7 +4,7 @@ BE Mod 2 Week 4/5 Group Project
 Forked repository from the [Turing School](https://turing.io/) monster_shop_2005 project.
 
 
-![Lets Go Shopping!](https://media4.giphy.com/media/fAhOtxIzrTxyE/100w.webp?cid=5a38a5a2z1n7c9tmo61y6h70io7n885gb8om5v4lsjyycsyo&rid=100w.webp)
+![Lets Go Shopping!](https://media3.giphy.com/media/VTXzh4qtahZS/100w.webp?cid=5a38a5a2nvphdbljdiwx8d6ka15whgpbglvwfjdqnne97omo&rid=100w.webp)
 
 
 
@@ -39,8 +39,7 @@ This is a short explaination of each piece of functionality that we implemented.
 
 ## Schema
 
-![Database Schema][logo]
-[logo]: https://turingschool.slack.com/files/U014UE45P7Y/F01EUSTHW64/monster_shop_database_schema.png
+![Database Schema](app/assets/images/monster_shop_database_schema.png)
 
 ## Navigation
 
