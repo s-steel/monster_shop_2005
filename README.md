@@ -4,7 +4,7 @@ BE Mod 2 Week 4/5 Group Project
 Forked repository from the [Turing School](https://turing.io/) monster_shop_2005 project.
 
 
-![Lets Go Shopping!](https://media4.giphy.com/media/fAhOtxIzrTxyE/100w.webp?cid=5a38a5a2z1n7c9tmo61y6h70io7n885gb8om5v4lsjyycsyo&rid=100w.webp =250x)
+![Lets Go Shopping!](https://media4.giphy.com/media/fAhOtxIzrTxyE/100w.webp?cid=5a38a5a2z1n7c9tmo61y6h70io7n885gb8om5v4lsjyycsyo&rid=100w.webp)
 
 
 
