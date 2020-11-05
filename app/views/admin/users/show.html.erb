@@ -1,0 +1,9 @@
+<h2><u>User Profile</u></h2>
+
+<h1><%= @user.name %></h1>
+<h3><%= @user.address %><br>
+    <%= @user.city %>, <%= @user.state %> <%= @user.zip %></h3>
+
+<p><%= @user.email %></p><br>
+
+<%= link_to "My Orders", "/profile/orders" %>
