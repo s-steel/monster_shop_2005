@@ -1,0 +1,17 @@
+<h1>Users:</h1>
+
+<% @users.each do |user| %>
+  <table>
+    <tr>
+      <td>
+        <%= link_to user.name, admin_user_show_url(user.id) %>
+      </td>
+      <td>
+        <%= user.role %>
+      </td>
+      <td>
+        <%= user.date_created %>
+      </td>
+    </tr>
+  </table>
+<% end %>
