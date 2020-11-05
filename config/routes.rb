@@ -4,15 +4,16 @@ Rails.application.routes.draw do
   root 'welcome#index'
 
   resources :merchants
-
-  resources :items, except: [:new]
-  
+  # resources :merchants do
+  #   resources :items, only: [:index, :new, :create]
+  # end
   get '/merchants/:merchant_id/items', to: 'items#index'
   get '/merchants/:merchant_id/items/new', to: 'items#new'
   post '/merchants/:merchant_id/items', to: 'items#create'
 
-  get '/items/:item_id/reviews/new', to: 'reviews#new'
-  post '/items/:item_id/reviews', to: 'reviews#create'
+  resources :items, except: [:new] do
+    resources :reviews, only: [:new, :create]
+  end
 
   resources :reviews, except: [:index, :show, :new, :create]
 
@@ -24,22 +25,30 @@ Rails.application.routes.draw do
 
   resources :orders, only: [:new, :create]
 
-  get '/register', to: 'users#new'
-  post '/register', to: 'users#create'
+  scope :register do
+    get '/', to: 'users#new', as: :register
+    post '/', to: 'users#create'
+  end
 
   namespace :profile do
-    patch '/orders/:id', to: 'orders#update', as: :profile_orders_cancel
+    patch '/orders/:id', to: 'orders#update', as: :orders_cancel
   end
-  get '/profile/orders', to: 'users#orders', as: :profile_orders
-  get '/profile/orders/:id', to: 'orders#show', as: :profile_orders_show
-  get '/profile', to: 'users#show'
-  get '/profile/edit', to: 'users#edit'
-  patch '/profile', to: 'users#update', as: :user
-  get '/profile/change-password', to: 'users#change_password'
-  patch '/profile/change-password', to: 'users#update_password'
 
-  get '/login', to: 'sessions#new'
-  post '/login', to: 'sessions#create'
+  scope :profile do
+    get '/orders', to: 'users#orders', as: :profile_orders
+    get '/orders/:id', to: 'orders#show', as: :profile_orders_show
+    get '', to: 'users#show'
+    get '/edit', to: 'users#edit'
+    patch '', to: 'users#update', as: :user
+    get '/change-password', to: 'users#change_password'
+    patch '/change-password', to: 'users#update_password'
+  end
+
+  scope :login do
+    get '/', to: 'sessions#new', as: :login
+    post '/', to: 'sessions#create'
+  end
+
   get '/logout', to: 'sessions#destroy'
 
   namespace :admin do

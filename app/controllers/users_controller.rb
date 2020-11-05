@@ -50,7 +50,7 @@ class UsersController < ApplicationController
     redirect_to '/profile'
     rescue ActiveRecord::RecordInvalid => e
       create_error_response(e)
-      redirect_to profile_edit_path
+      redirect_to edit_path
     end
   end
 
