@@ -63,24 +63,23 @@ class Merchant::ItemsController < ApplicationController
   end
 
   def update
-    item = Item.find(params[:id])
-    item.update(item_params)
-    if item.inventory < 0
+    @item = Item.find(params[:id])
+    if @item.inventory < 0
       flash[:error] = 'Inventory cannot be below 0.'
-      redirect_to "/merchant/items/#{item.id}/edit"
+      redirect_to "/merchant/items/#{@item.id}/edit"
       return
     end
     if params[:item][:image] == ""
-      item[:image] = 'https://snellservices.com/wp-content/uploads/2019/07/image-coming-soon.jpg'
+      @item[:image] = 'https://snellservices.com/wp-content/uploads/2019/07/image-coming-soon.jpg'
     end
 
     begin
-      item.save!
-      flash[:message] = 'Your item has been updated'
-      redirect_to '/merchant/items'
+      @item.update!(item_params)
+      flash[:success] = 'Your item has been updated'
+      redirect_to merchant_items_path
     rescue ActiveRecord::RecordInvalid => e
       create_error_response(e)
-      redirect_to "/merchant/items/#{item.id}/edit"
+      redirect_to "/merchant/items/#{@item.id}/edit"
     end
   end
 
