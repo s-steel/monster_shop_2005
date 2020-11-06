@@ -95,14 +95,14 @@ describe "As a merchant employee" do
       within "#order-#{@order_1.id}" do
         expect(page).to have_link("#{@order_1.id}")
         expect(page).to have_content("#{@order_1.date_created}")
-        expect(page).to have_content("2")
+        expect(page).to have_content("3")
         expect(page).to have_content("$250.00")
       end
 
       within "#order-#{@order_2.id}" do
         expect(page).to have_link("#{@order_2.id}")
         expect(page).to have_content("#{@order_2.date_created}")
-        expect(page).to have_content("2")
+        expect(page).to have_content("11")
         expect(page).to have_content("$1,440.00")
       end
     end
