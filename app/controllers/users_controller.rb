@@ -11,7 +11,7 @@ class UsersController < ApplicationController
         redirect_to '/profile'
       rescue ActiveRecord::RecordInvalid => e
         create_error_response(e)
-        redirect_to register_path
+        render :new
       end
     else
       flash[:error] = "Passwords must match."
@@ -86,11 +86,6 @@ class UsersController < ApplicationController
   end
 
   def create_error_response(error)
-    case error.message
-    when "Validation failed: Name can't be blank, Address can't be blank, City can't be blank, State can't be blank, Zip can't be blank"
-      flash[:error] = 'Please enter data in all required fields'
-    when 'Validation failed: Email has already been taken'
-      flash[:error] = 'This email is already registered. Please use a new email.'
-    end
+      flash[:error] = error.message.delete_prefix('Validation failed: ')
   end
 end
