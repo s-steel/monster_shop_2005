@@ -13,7 +13,7 @@
       <td><p><%= link_to "#{order.user.name}", "/admin/users/#{order.user.id}" %> </p></td>
       <td><p><%= order.id %> </p></td>
       <td><p><%= order.created_at.strftime('%m/%d/%Y') %> </p></td>
-      <p style='float: left; width: 70px'><%= button_to("Ship", "/admin/orders/#{order.id}", method: :patch) %></p>
+      <p><%= button_to("Ship", "/admin/orders/#{order.id}", method: :patch) %></p>
     </tr>
     <% end %>
   </table>
