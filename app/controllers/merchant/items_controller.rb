@@ -44,7 +44,7 @@ class Merchant::ItemsController < ApplicationController
     item = Item.find(params[:id])
     item.toggle_active
     item.save
-    flash[:notice] = "#{item.name} is no longer for sale"
+    flash[:success] = "#{item.name} is no longer for sale"
 
     redirect_to "/merchant/items"
   end
@@ -53,7 +53,7 @@ class Merchant::ItemsController < ApplicationController
     item = Item.find(params[:id])
     item.toggle_active
     item.save
-    flash[:notice] = "#{item.name} is now available for sale"
+    flash[:success] = "#{item.name} is now available for sale"
 
     redirect_to "/merchant/items"
   end
@@ -64,7 +64,7 @@ class Merchant::ItemsController < ApplicationController
 
   def update
     @item = Item.find(params[:id])
-    if @item.inventory < 0
+    if params[:item][:inventory].to_i < 0
       flash[:error] = 'Inventory cannot be below 0.'
       redirect_to "/merchant/items/#{@item.id}/edit"
       return
