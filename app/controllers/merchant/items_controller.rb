@@ -17,7 +17,7 @@ class Merchant::ItemsController < ApplicationController
     if @item.image.empty?
       @item[:image] = 'https://snellservices.com/wp-content/uploads/2019/07/image-coming-soon.jpg'
     end
-    if @item.inventory < 0
+    if @item.inventory.nil?
       flash[:error] = 'Inventory must be at least zero.'
       redirect_to '/merchant/items/new'
       return
@@ -44,7 +44,7 @@ class Merchant::ItemsController < ApplicationController
     item = Item.find(params[:id])
     item.toggle_active
     item.save
-    flash[:notice] = "#{item.name} is no longer for sale"
+    flash[:success] = "#{item.name} is no longer for sale"
 
     redirect_to "/merchant/items"
   end
@@ -53,7 +53,7 @@ class Merchant::ItemsController < ApplicationController
     item = Item.find(params[:id])
     item.toggle_active
     item.save
-    flash[:notice] = "#{item.name} is now available for sale"
+    flash[:success] = "#{item.name} is now available for sale"
 
     redirect_to "/merchant/items"
   end
