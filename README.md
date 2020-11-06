@@ -9,7 +9,7 @@ Forked repository from the [Turing School](https://turing.io/) monster_shop_2005
 
 
 
-Collaboration between: [Zach Sterns](https://github.com/Stearnzy), [Aiden Murray](https://github.com/TeknoServal), and [Sean Steel](https://github.com/s-steel)
+Collaboration between: [Zach Stearns](https://github.com/Stearnzy), [Aidan Murray](https://github.com/TeknoServal), and [Sean Steel](https://github.com/s-steel)
 
 
 ## Check it out [Here!](https://immense-plateau-02889.herokuapp.com/)
@@ -27,15 +27,16 @@ This is a short explaination of each piece of functionality that we implemented.
 **[Database Schema](#database-schema)**<br>
 **[Navigation](#navigation)**<br>
 **[User Registration](#user-registration)**<br>
-**[Login/Logout](#login/logout)**<br>
+**[Login and Logout](#login-and-logout)**<br>
 **[Items](#items)**<br>
 **[User Profile](#user-profile)**<br>
-**[Shopping Cart & Checkout](#shopping-cart-&-checkout)**<br>
+**[Shopping Cart and Checkout](#shopping-cart-and-checkout)**<br>
 **[Orders](#orders)**<br>
 **[Merchant Actions](#merchant-actions)**<br>
 **[Order Fulfillment](#order-fulfillment)**<br>
 **[Admin Actions](#admin-actions)**<br>
 **[Next Time](#next-time)**<br>
+**[Try it Yourself](#try-it-yourself)**<br>
 
 ## Database Schema
 
@@ -49,7 +50,7 @@ This is examining the navigation bar on the top of each page.  It presents links
 
 This section allows a user to register on our site.  A user is able to enter in their information and register for the site, and their password is encrypted using BCrypt.  User must enter in their information completely and have a unique email address.  Each user that is registered on the site is given a `role` which is represented by an integer.  We then used `enum` within the user model to assign a string which represented their access level ie. `admin`, `merchant_employee`, or `default`.  We then also added an option `merchant_id` attribute for each user.  This was only used for merchant employees to be able to indentify which employee belonged to which merchant.  We also implemented `before_action` in merchant and admin controllers to control who was able to access certain actions.
 
-## Login/Logout
+## Login and Logout
 
 Users can login and logout, and cannot login with bad credentials.  When logging in and logging out the user is redirected to their profile page or dashboard depending on their role.  When logging in, logging out, or entering bad credentials they see flash messages explaining what happened.
 
@@ -61,7 +62,7 @@ This is the main shopping page.  Visitors and regular users are able to browse a
 
 A regular user is able to login and see all their information with the exception of their password on their profile page.  They cannot see their password because it is encrypted before being stored in the database.  Users are able edit their information, password, and email as long as the new email address is not already in the system.  Admins are able to see all the registered users of the site, but not merchant or admin users.
 
-## Shopping Cart & Checkout
+## Shopping Cart and Checkout
 
 This is where you make the money!  Here a user can put items in a shopping cart and then checkout which creates an order.  They are able to add multiple items to their cart as well as remove items which are then returned to the merchants inventory.  Users can not add more items to their cart than what is in inventory.  If a visitor to the site wants to checkout they must register or login first.  Once a user has placed their order the status of the order changes, they receive a flash message confirming the order was created and their cart is then empty.  
 
@@ -84,3 +85,7 @@ Admins are able to view all merchants and users and see their individual pages a
 ## Next Time
 
 One thing that we attempted, but were not able to implement was the ability to use images within the assets folder in our app.  This was specifically for the default image for an item.  We tried a few different ways, but in the end we couldn't spend more time on it and moved on.
+
+## Try It Yourself
+
+Visit this [repo](https://github.com/turingschool-examples/monster_shop_2005), and follow along with the user stories!

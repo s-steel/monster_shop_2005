@@ -130,5 +130,47 @@ describe 'admin/merchant index page', type: :feature do
       expect(page).to have_content(@pull_toy.name)
       expect(page).to have_content(@dog_bone.name)
     end
+
+    it 'you can see all the merchants in the system' do
+      visit 'admin/merchants'
+
+      expect(page).to have_content("Merchants")
+      expect(page).to have_content(@dog_shop.name)
+      expect(page).to have_content(@bike_shop.name)
+    end
+
+    it 'next to each merchants name I see their city and state' do
+      visit 'admin/merchants'
+
+      within ".merchant-#{@bike_shop.id}" do
+        expect(page).to have_content(@bike_shop.city)
+        expect(page).to have_content(@bike_shop.state)
+      end
+      within ".merchant-#{@dog_shop.id}" do
+        expect(page).to have_content(@dog_shop.city)
+        expect(page).to have_content(@dog_shop.state)
+      end
+    end
+
+    it 'merchants name is a link to their dashboard ex/ "/admin/merchants/5"' do
+      visit 'admin/merchants'
+
+      within ".merchant-#{@dog_shop.id}" do
+        click_link("#{@dog_shop.name}")
+      end
+
+      expect(current_path).to eq("/admin/merchants/#{@dog_shop.id}")
+    end
+
+    it 'I see disable or enable next to all merchants' do
+      visit '/admin/merchants'
+
+      within ".merchant-#{@dog_shop.id}" do
+        expect(page).to have_button("Enable")
+      end
+      within ".merchant-#{@bike_shop.id}" do
+        expect(page).to have_button("Disable")
+      end
+    end
   end
 end
