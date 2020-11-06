@@ -9,7 +9,7 @@ Forked repository from the [Turing School](https://turing.io/) monster_shop_2005
 
 
 
-Collaboration between: [Zach Sterns](https://github.com/Stearnzy), [Aiden Murray](https://github.com/TeknoServal), and [Sean Steel](https://github.com/s-steel)
+Collaboration between: [Zach Stearns](https://github.com/Stearnzy), [Aidan Murray](https://github.com/TeknoServal), and [Sean Steel](https://github.com/s-steel)
 
 
 ## Check it out [Here!](https://immense-plateau-02889.herokuapp.com/)
