@@ -25,6 +25,7 @@
         <%= link_to "Logout", "/logout" %>
         <%= link_to "Admin Dashboard", "/admin" %>
         <%= link_to "All Users", "/admin/users" %>
+        <%= link_to "Merchant Management", "/admin/merchants" %>
         <div class="current-user">Logged in as <%= current_user.name %></div>
       <% elsif current_user %>
         <%= link_to "Cart: #{cart.total_items}", "/cart" %>
