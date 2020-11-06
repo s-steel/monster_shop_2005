@@ -7,13 +7,13 @@
       <th>Name of User</th>
       <th>Order ID</th>
       <th>Date Created</th>
+
     </tr>
     <% @orders.where(status: 'packaged').each do |order| %>
     <tr id="order-<%= order.id %>">
       <td><p><%= link_to "#{order.user.name}", "/admin/users/#{order.user.id}" %> </p></td>
-      <td><p><%= order.id %> </p></td>
+      <td><p><%= order.id %> <%= button_to("Ship", "/admin/orders/#{order.id}", method: :patch) %></p></td>
       <td><p><%= order.created_at.strftime('%m/%d/%Y') %> </p></td>
-      <p><%= button_to("Ship", "/admin/orders/#{order.id}", method: :patch) %></p>
     </tr>
     <% end %>
   </table>
