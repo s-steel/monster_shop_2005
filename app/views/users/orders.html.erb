@@ -1,5 +1,24 @@
 <h1>Your Orders:</h1>
 
-<% @user.orders.each do |order| %>
-<h3><a href="<%= profile_orders_show_path(order.id) %>">Order <%= order.id %></a></h3>
-<% end  %>
+<table>
+  <tr>
+    <th>Order</th>
+    <th>Date Placed</th>
+    <th>Last Updated</th>
+    <th>Status</th>
+    <th>Quantity</th>
+    <th>Grand Total</th>
+  </tr>
+
+  <% @user.orders.each do |order| %>
+  <tr id="order-<%= order.id %>">
+    <td><h3><a href="<%= profile_orders_show_path(order.id) %>">Order <%= order.id %></a></h3></td>
+    <td><%= order.date_created %></td>
+    <td><%= order.date_updated %></td>
+    <td><%= order.status %></td>
+    <td><%= order.item_count %></td>
+    <td><%= number_to_currency(order.grandtotal) %></td>
+  </tr>
+  <% end  %>
+
+</table>

@@ -50,5 +50,35 @@ describe 'Order show page' do
       click_link("Order #{@order_1.id}")
       expect(current_path).to eq("/profile/orders/#{@order_1.id}")
     end
+
+    it "I see every order I've made with the id, date created, last updated, current
+        status, total quantity of items, and grand total" do
+      visit '/profile/orders'
+
+      expect(page).to have_content("Order")
+      expect(page).to have_content("Date Placed")
+      expect(page).to have_content("Last Updated")
+      expect(page).to have_content("Status")
+      expect(page).to have_content("Quantity")
+      expect(page).to have_content("Grand Total")
+
+      within "#order-#{@order_1.id}" do
+        expect(page).to have_content("Order #{@order_1.id}")
+        expect(page).to have_content("#{@order_1.date_created}")
+        expect(page).to have_content("#{@order_1.date_updated}")
+        expect(page).to have_content("pending")
+        expect(page).to have_content("5")
+        expect(page).to have_content("$260.00")
+      end
+
+      within "#order-#{@order_2.id}" do
+        expect(page).to have_content("Order #{@order_2.id}")
+        expect(page).to have_content("#{@order_2.date_created}")
+        expect(page).to have_content("#{@order_2.date_updated}")
+        expect(page).to have_content("pending")
+        expect(page).to have_content("3")
+        expect(page).to have_content("$24.00")
+      end
+    end
   end
 end
