@@ -19,18 +19,18 @@
         <%= link_to "Dashboard", "/merchant" %>
         <%= link_to "Profile", "/profile" %>
         <%= link_to "Logout", "/logout" %>
-        <div>Logged in as <%= current_user.name %></div>
+        <div class="current-user">Logged in as <%= current_user.name %></div>
       <% elsif current_user && current_user.role == "admin" %>
         <%= link_to "Profile", "/profile" %>
         <%= link_to "Logout", "/logout" %>
         <%= link_to "Admin Dashboard", "/admin" %>
         <%= link_to "All Users", "/admin/users" %>
-        <div>Logged in as <%= current_user.name %></div>
+        <div class="current-user">Logged in as <%= current_user.name %></div>
       <% elsif current_user %>
         <%= link_to "Cart: #{cart.total_items}", "/cart" %>
         <%= link_to "Profile", "/profile" %>
         <%= link_to "Logout", "/logout" %>
-        <div>Logged in as <%= current_user.name %></div>
+        <div class="current-user">Logged in as <%= current_user.name %></div>
       <% else %>
         <%= link_to "Cart: #{cart.total_items}", "/cart" %>
         <%= link_to "Register", "/register" %>

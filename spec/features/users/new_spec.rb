@@ -37,7 +37,7 @@ describe 'new registration' do
 
       click_button 'Submit'
       expect(current_path).to eq('/register')
-      expect(page).to have_content('Please enter data in all required fields')
+      expect(page).to have_content("Name can't be blank, Address can't be blank, City can't be blank, State can't be blank, Zip can't be blank")
     end
 
     it 'fill out forms with a reused email, page does not change and flash message' do
@@ -60,7 +60,7 @@ describe 'new registration' do
 
       click_button 'Submit'
       expect(current_path).to eq('/register')
-      expect(page).to have_content('This email is already registered. Please use a new email.')
+      expect(page).to have_content('Email has already been taken')
     end
 
     it 'if I fill in password fields without matching them I get an error' do
