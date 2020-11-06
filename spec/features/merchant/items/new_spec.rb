@@ -122,17 +122,17 @@ describe "As a merchant employee" do
       expect(page).to have_content('Enter New Item Info')
     end
 
-    it 'Inventory must be greater than 0' do
+    it 'Inventory must be at least 0' do
       visit "/merchant/items/new"
 
       fill_in 'item[name]', with: "Helmet"
       fill_in 'item[description]', with: "Safety First!"
       fill_in 'item[image]', with: "https://i.shgcdn.com/944e4e88-f81a-4975-b2a2-c9beb2d3bcf1/-/format/auto/-/preview/3000x3000/-/quality/lighter/"
       fill_in 'item[price]', with: "25"
-      fill_in 'item[inventory]', with: "0"
+      fill_in 'item[inventory]', with: "-1"
       click_button('Create Item')
 
-      expect(page).to have_content('Inventory must be greater than zero.')
+      expect(page).to have_content('Inventory must be at least zero.')
       expect(page).to have_content('Enter New Item Info')
     end
 
