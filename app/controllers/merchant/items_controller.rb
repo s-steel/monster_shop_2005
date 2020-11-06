@@ -17,7 +17,7 @@ class Merchant::ItemsController < ApplicationController
     if @item.image.empty?
       @item[:image] = 'https://snellservices.com/wp-content/uploads/2019/07/image-coming-soon.jpg'
     end
-    if @item.inventory.nil?
+    if @item.inventory.nil? || @item.inventory < 0
       flash[:error] = 'Inventory must be at least zero.'
       redirect_to '/merchant/items/new'
       return
