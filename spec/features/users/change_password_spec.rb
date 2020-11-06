@@ -44,5 +44,17 @@ describe 'As a registered user' do
       expect(current_path).to eq('/profile')
       expect(page).to have_content('Password updated successfully!')
     end
+
+    it "When I do not match password inputs I get an error" do
+      visit '/profile'
+      click_link 'Change Password'
+
+      fill_in :password, with: 'pass'
+      fill_in :confirm_password, with: 'multipass'
+      click_button 'Submit'
+
+      expect(current_path).to eq('/profile/change-password')
+      expect(page).to have_content('Passwords do not match. Try again.')
+    end
   end
 end

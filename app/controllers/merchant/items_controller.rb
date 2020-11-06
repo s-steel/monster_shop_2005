@@ -14,7 +14,7 @@ class Merchant::ItemsController < ApplicationController
   def create
     user = current_user
     @item = user.merchant.items.new(item_params)
-    if @item.image.nil?
+    if @item.image.empty?
       @item[:image] = 'https://snellservices.com/wp-content/uploads/2019/07/image-coming-soon.jpg'
     end
     if @item.inventory == 0

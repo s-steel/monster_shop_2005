@@ -39,10 +39,7 @@ class CartController < ApplicationController
       cart[item.id.to_s] -= 1
       if cart[item.id.to_s] <= 0
         remove_item
-      else
-        redirect_to '/cart'
       end
-
     end
   end
 
