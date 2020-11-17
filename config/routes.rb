@@ -1,5 +1,4 @@
 Rails.application.routes.draw do
-  # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 
   get '/', to: 'welcome#index', as: :root
   # root 'welcome#index'
@@ -70,12 +69,18 @@ Rails.application.routes.draw do
 
 
   namespace :merchant do
-    get '/', to: 'dashboard#show'
-    resources :items, execpt: [:show]
-    get '/orders/:order_id', to: 'orders#show'
-    patch '/items/:id/deactivate', to: 'items#deactivate'
-    patch '/items/:id/activate', to: 'items#activate'
-    patch '/orders/:id', to: 'orders#update', as: :order
-    get '/items', to: 'items#index'
+    # get '/', to: 'dashboard#show'
+    resources :items, except: [:show]
+    # get '/orders/:order_id', to: 'orders#show'
+    # patch '/items/:id/deactivate', to: 'items#deactivate'
+    # patch '/items/:id/activate', to: 'items#activate'
+    # patch '/orders/:id', to: 'orders#update', as: :order
+    resources :items, only: [:index]
+    # get '/items', to: 'items#index'
   end
+  get '/merchant', to: 'merchant/dashboard#show'
+  get '/merchant/orders/:order_id', to: 'merchant/orders#show'
+  patch '/merchant/items/:id/deactivate', to: 'merchant/items#deactivate'
+  patch '/merchant/items/:id/activate', to: 'merchant/items#activate'
+  patch '/merchant/orders/:id', to: 'merchant/orders#update', as: :merchant_order
 end
