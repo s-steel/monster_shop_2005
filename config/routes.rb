@@ -38,7 +38,6 @@ Rails.application.routes.draw do
     
     get '/edit', to: 'users#edit', as: :edit
     patch '/', to: 'users#update', as: :user
-  
     get '/change-password', to: 'users#change_password'
     patch '/change-password', to: 'users#update_password'
   end 
