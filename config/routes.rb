@@ -43,12 +43,15 @@ Rails.application.routes.draw do
     patch '/orders/:id', to: 'orders#update', as: :profile_orders_cancel
   end
 
-  get '/login', to: 'sessions#new'
-  post '/login', to: 'sessions#create'
-  get '/logout', to: 'sessions#destroy'
+  scope :login do 
+    get '/', to: 'sessions#new', as: :login
+    post '/', to: 'sessions#create'
+  end
 
+  scope :logout do 
+    get '/', to: 'sessions#destroy', as: :logout
+  end 
 
-  # Admin
   namespace :admin do
     get '/', to: 'dashboard#index'
     patch '/orders/:id', to: 'dashboard#ship'
