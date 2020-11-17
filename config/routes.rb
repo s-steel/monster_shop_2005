@@ -27,17 +27,21 @@ Rails.application.routes.draw do
     get '/', to: 'users#new', as: :register
     post '/', to: 'users#create'
   end
+
+  scope :profile do
+    get '/', to: 'users#show'
+
+    scope :orders do
+      get '/', to: 'users#orders', as: :profile_orders
+      get '/:id', to: 'orders#show', as: :profile_orders_show
+    end
+    
+    get '/edit', to: 'users#edit', as: :edit
+    patch '/', to: 'users#update', as: :user
   
-  get '/profile', to: 'users#show'
-
-  get '/profile/orders', to: 'users#orders', as: :profile_orders
-  get '/profile/orders/:id', to: 'orders#show', as: :profile_orders_show
-  get '/profile/edit', to: 'users#edit', as: :edit
-  patch '/profile', to: 'users#update', as: :user
-
-  get '/profile/change-password', to: 'users#change_password'
-  patch '/profile/change-password', to: 'users#update_password'
-  # Plz refactor inside namespace
+    get '/change-password', to: 'users#change_password'
+    patch '/change-password', to: 'users#update_password'
+  end 
 
   namespace :profile do
     patch '/orders/:id', to: 'orders#update', as: :profile_orders_cancel
