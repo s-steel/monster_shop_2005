@@ -8,7 +8,6 @@ class Admin::DashboardController < ApplicationController
   def ship
     order = Order.find(params[:id])
     order.update(status: 'shipped')
-    # binding.pry
     redirect_to '/admin'
   end
 
