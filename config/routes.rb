@@ -41,9 +41,10 @@ Rails.application.routes.draw do
     patch '/change-password', to: 'users#update_password'
   end
 
-  namespace :profile do
-    patch '/orders/:id', to: 'orders#update', as: :profile_orders_cancel
-  end
+  # namespace :profile do
+  #   patch '/orders/:id', to: 'orders#update', as: :profile_orders_cancel
+  # end
+  patch '/profile/orders/:id', to: 'profile/orders#update', as: :profile_orders_cancel
 
   scope :login do
     get '/', to: 'sessions#new', as: :login
