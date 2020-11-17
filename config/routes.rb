@@ -1,43 +1,19 @@
 Rails.application.routes.draw do
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 
-  # root 'welcome#index'
   get '/', to: 'welcome#index', as: :root
+  # root 'welcome#index'
 
-    # resources :merchants do
-  #   resources :items, only: [:index, :new, :create]
-  # end
   resources :merchants
   get '/merchants/:merchant_id/items', to: 'items#index'
   get '/merchants/:merchant_id/items/new', to: 'items#new'
   post '/merchants/:merchant_id/items', to: 'items#create'
 
-  # get '/merchants', to: 'merchants#index'
-  # get '/merchants/new', to: 'merchants#new'
-  # get '/merchants/:id', to: 'merchants#show'
-  # post '/merchants', to: 'merchants#create'
-  # get '/merchants/:id/edit', to: 'merchants#edit'
-  # patch '/merchants/:id', to: 'merchants#update'
-  # delete '/merchants/:id', to: 'merchants#destroy'
-
   resources :items, except: [:new] do
     resources :reviews, only: [:new, :create]
   end
-  # get '/items', to: 'items#index'
-  # get '/items/:id', to: 'items#show'
-  # get '/items/:id/edit', to: 'items#edit'
-  # patch '/items/:id', to: 'items#update'
-  # get '/merchants/:merchant_id/items', to: 'items#index'
-  # get '/merchants/:merchant_id/items/new', to: 'items#new'
-  # post '/merchants/:merchant_id/items', to: 'items#create'
-  # delete '/items/:id', to: 'items#destroy'
 
-  get '/items/:item_id/reviews/new', to: 'reviews#new'
-  post '/items/:item_id/reviews', to: 'reviews#create'
-
-  get '/reviews/:id/edit', to: 'reviews#edit'
-  patch '/reviews/:id', to: 'reviews#update'
-  delete '/reviews/:id', to: 'reviews#destroy'
+  resources :reviews, except: [:index, :show, :new, :create]
 
   post '/cart/:item_id', to: 'cart#add_item'
   patch '/cart/:item_id', to: 'cart#change_amount', as: :cart_update
@@ -45,11 +21,13 @@ Rails.application.routes.draw do
   delete '/cart', to: 'cart#empty'
   delete '/cart/:item_id', to: 'cart#remove_item'
 
-  get '/orders/new', to: 'orders#new'
-  post '/orders', to: 'orders#create'
+  resources :orders, only: [:new, :create]
 
-  get '/register', to: 'users#new'
-  post '/register', to: 'users#create', as: :users
+  scope :register do
+    get '/', to: 'users#new', as: :register
+    post '/', to: 'users#create'
+  end
+  
   get '/profile', to: 'users#show'
 
   get '/profile/orders', to: 'users#orders', as: :profile_orders
