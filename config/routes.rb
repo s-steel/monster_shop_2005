@@ -35,36 +35,39 @@ Rails.application.routes.draw do
       get '/', to: 'users#orders', as: :profile_orders
       get '/:id', to: 'orders#show', as: :profile_orders_show
     end
-    
+
     get '/edit', to: 'users#edit', as: :edit
     patch '/', to: 'users#update', as: :user
     get '/change-password', to: 'users#change_password'
     patch '/change-password', to: 'users#update_password'
-  end 
+  end
 
   namespace :profile do
     patch '/orders/:id', to: 'orders#update', as: :profile_orders_cancel
   end
 
-  scope :login do 
+  scope :login do
     get '/', to: 'sessions#new', as: :login
     post '/', to: 'sessions#create'
   end
 
-  scope :logout do 
+  scope :logout do
     get '/', to: 'sessions#destroy', as: :logout
-  end 
+  end
 
   namespace :admin do
-    get '/', to: 'dashboard#index'
-    patch '/orders/:id', to: 'dashboard#ship'
-    get '/users', to: 'users#index'
-    get '/users/:user_id', to: 'users#show', as: :user_show
-    get '/merchants/:id', to: 'merchants#show'
-    get '/merchants', to: 'merchants#index'
-    patch '/merchants/:id/disable', to: 'merchants#disable'
-    patch '/merchants/:id/enable', to: 'merchants#enable'
+    # get '/', to: 'dashboard#index'
+    # patch '/orders/:id', to: 'dashboard#ship'
+    resources :users, only: [:index, :show]
+    resources :merchants, only: [:show, :index]
+    # patch '/merchants/:id/disable', to: 'merchants#disable'
+    # patch '/merchants/:id/enable', to: 'merchants#enable'
   end
+  get '/admin', to: 'admin/dashboard#index'
+  patch '/admin/orders/:id', to: 'admin/dashboard#ship'
+  patch '/admin/merchants/:id/disable', to: 'admin/merchants#disable'
+  patch '/admin/merchants/:id/enable', to: 'admin/merchants#enable'
+
 
   namespace :merchant do
     get '/', to: 'dashboard#show'
